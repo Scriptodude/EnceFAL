@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/AESSUQAM/EnceFAL.png?label=ready&title=Ready)](https://waffle.io/AESSUQAM/EnceFAL)
 # EnceFAL
 
 EnceFAL est un projet Django, qui vise à faciliter la gestion de foires aux livres usagés
