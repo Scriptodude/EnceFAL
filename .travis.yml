@@ -1,1 +1,40 @@
+# voir "https://docs.travis-ci.com/user/customizing-the-build/"
+#      "https://docs.travis-ci.com/user/languages/python"
+#      "https://github.com/getsentry/sentry/blob/master/.travis.yml"
+#      "https://github.com/jpvanhal/flask-split/blob/master/.travis.yml"
+
+# Pour plus d'infos relativement à la construction du document
+
+# 1- language du projet
+#   ex : language: python
+
+# 2- version du language
+#   note : la version par défaut de python est 2.7
+#   ex : python:
+#           - "2.6"
+#           - "3.0"
+#           - "pypy"
+
+# 3- Test avec plusieurs versions de dépendances (env)
+# env: [NOM_DÉPENDANCE=VERSION]
+#   ex: env:
+#           - DJANGO_VERSION=1.9.6
+
+# 4- install addons
+# install: ./[Script à exécuter]
+# Pour skipper => install: true
+#   ex : install:
+#           - pip install .
+#           - pip install -r [Chemin vers le fichier des pré-requis]
+# 4.1- Il est probable qu'on doit installer Django comme dépendance
+#   install:
+#       - pip install -q Django==$DJANGO_VERSION
+
+# 5- script de test
+# script: [quoi exécuter]
+#   ex: script: nosetests
+#   ex2: script: make test
+# note: si script est absent du fichier => message d'erreur + fail du build
+
+
 
