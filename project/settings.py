@@ -5,6 +5,8 @@
 import os
 from conf import *
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 ADMINS = (
     # ('Nilovna Bascunan-Vasquez', 'contact@nilovna.com'),
 )
@@ -54,10 +56,39 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 SECRET_KEY = 'phgxc&v+2@4--i(t^s_d3=1w+jhw=qr*6oo2j7po(z$5*x$hup'
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+#TEMPLATE_LOADERS = (
+#    'django.template.loaders.filesystem.Loader',
+#    'django.template.loaders.app_directories.Loader',
+#)
+
+DEBUG=False
+TEMPLATE_DEBUG=DEBUG
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, "templates"),],
+		# uncomment the following for automatic path searching
+        #'APP_DIRS': False,
+        'OPTIONS': {
+			# Replaces the old TEMPLATE_DEBUG
+			'debug': DEBUG,
+
+            'context_processors': [
+               	'django.template.context_processors.debug',
+               	'django.template.context_processors.request',
+				'django.contrib.auth.context_processors.auth',         					'django.contrib.messages.context_processors.messages',
+            ],
+
+			# Replaces TEMPLATE_LOADERS
+			'loaders': [
+            	#'django.template.loaders.cached.Loader',
+ 					'django.template.loaders.filesystem.Loader',              					'django.template.loaders.app_directories.Loader',
+            ],
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -68,9 +99,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.urls'
-
-DEBUG=False
-TEMPLATE_DEBUG=DEBUG
 AUTH_PASSWORD_REQUIRED = False
 
 LOGIN_REDIRECT_URL = "/employee/"
@@ -96,7 +124,7 @@ INSTALLED_APPS = (
     'project.encefal',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'south',
+    #'south',
 )
 
 STATIC_URL = '/static/'
