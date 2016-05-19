@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
-from django.conf.urls.defaults import *
+from django.conf.urls import *
+from . import views
 
-
-urlpatterns = patterns('encefal.views',
-    url(r'^$', 'acceuil', name='acceuil'),
-    url(r'^livres/$', 'livres', name='livres'),
-    url(r'^livre/$', 'livre', name='livre'),
-    url(r'^exemplaire/$', 'exemplaire', name='exemplaire'),
-    url(r'^vendeur/$', 'vendeur', name='vendeur'),
-    url(r'^rapport/$', 'rapport', name='rapport'),
-    url(r'^factures/$', 'factures', name='factures'),
-)
+urlpatterns = [
+    url(r'^$', views.acceuil, name='acceuil'),
+    url(r'^livres/$', views.livres, name='livres'),
+    url(r'^livre/$', views.livre, name='livre'),
+    url(r'^exemplaire/$', views.exemplaire, name='exemplaire'),
+    url(r'^vendeur/$', views.vendeur, name='vendeur'),
+    url(r'^rapport/$', views.rapport, name='rapport'),
+    url(r'^factures/$', views.factures, name='factures'),
+]
