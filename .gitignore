@@ -11,7 +11,6 @@ src/*.egg-info
 .*.swp
 *~
 \#*#
-*.db
 *.sql
 encefal_dev
 conf.py
