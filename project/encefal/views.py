@@ -1,11 +1,15 @@
 # -*- encoding: utf-8 -*-
+
+# Changed render_to_response to render
+# since it will not be supported by django 1.10
+
 import json
 import urllib
 from lxml import html
 
 from datetime import datetime, timedelta, date
 from django.shortcuts import render_to_response,render
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from django.http import (
                          HttpResponseRedirect,
                          HttpResponse,
@@ -30,13 +34,13 @@ from django.conf import settings
 
 # Default employee index page
 def index_employee(request):
-    return render_to_response('encefal/employee/index.html', {},
+    return render(request, 'encefal/employee/index.html', {},
                               RequestContext(request))
 
 def acceuil(request):
-    return render_to_response('encefal/index.html',
-                              {'next_session':Session.next_session(), 'current_session':Session.current_session()},
-                              RequestContext(request))
+    return render(request, 'encefal/index.html',
+{'next_session':Session.next_session(), 'current_session':Session.current_session()},
+RequestContext(request))
 
 def livres(request):
 
@@ -47,7 +51,7 @@ def livres(request):
             'livres':livres,
             }
 
-    return render_to_response('encefal/livres.html',
+    return render(request, 'encefal/livres.html',
             context, context_instance = RequestContext(request))
 
 def livre(request):
@@ -200,7 +204,7 @@ def rapport(request):
         'prix_total_vendu':prix_total_vendu,
     }
 
-    return render_to_response('encefal/rapport.html', context)
+    return render(request, 'encefal/rapport.html', context)
 
 def factures(request):
 
@@ -222,5 +226,5 @@ def factures(request):
         'facture':facture,
     }
 
-    return render_to_response('encefal/factures.html', context)
+    return render(request, 'encefal/factures.html', context)
 
