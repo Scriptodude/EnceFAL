@@ -29,9 +29,12 @@ env:
 - DJANGO_VERSION=1.9.6
 
 #a executer avant l'installation
-#enleve tous les .pyc temporaire
 before_install:
 - pyclean .
+- sudo apt-get install virtualenv
+- virtualenv py_env
+- sudo py_env/bin/pip install --upgrade setuptools
+- sudo py_env/bin/pip install zc.buildout
 
 # 4- install addons
 # install: ./[Script a executer]
@@ -43,9 +46,6 @@ before_install:
 #   install:
 #       - pip install -q Django==$DJANGO_VERSION
 install:
-- virtualenv py_env
-- sudo py_env/bin/pip install --upgrade setuptools
-- sudo py_env/bin/pip install zc.buildout
 - sudo py_env/bin/buildout
 - cd project
 - cp conf.py.edit conf.py
