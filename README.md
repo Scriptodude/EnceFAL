@@ -9,7 +9,7 @@ EnceFAL est un projet Django, qui vise à faciliter la gestion de foires aux liv
 
 ```
 # 1. cloner le repo
-git clone https://github.com/AESSUQAM/EnceFAL.git
+git clone https://github.com/Scriptodude/EnceFAL.git
 cd EnceFAL
 
 # 2. Créer un environnement python virtuel
