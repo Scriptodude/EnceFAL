@@ -15,7 +15,7 @@ class SimpleTest(TestCase):
         """
     #    self.failUnlessEqual(1 + 1, 2)
 
-	# Création des objets de test
+	# Creation des objets de test
 	def setUp(self):
 		Vendeur.objects.create(nom="Robert", prenom="Bob", code_permanent="ROBB11223300", email="bob.robert@truc.org")
 		vend = Vendeur.objects.get(nom="Robert")
@@ -25,10 +25,10 @@ class SimpleTest(TestCase):
 
 		Exemplaire.objects.create(livre=liv, vendeur=vend, etat="VENT", prix=10.05)
 
-	# Test de quelques méthodes
+	# Test de quelques methodes
 	def test1(self):
 
-		# Récupération des objets précédemment créé
+		# Recuperation des objets precedemment cree
 		vend = Vendeur.objects.get(nom="Robert")
 		liv = Livre.objects.get(titre="abc123")
 		exe = Exemplaire.objects.get(livre=liv)
