@@ -32,6 +32,7 @@ class Metadata(models.Model):
                                     help_text=HELP_TEXT_FORMAT_DATE, )
 
     class Meta:
+    	app_label = "encefal"
         abstract = True
 
 ################################################################################
@@ -41,6 +42,7 @@ class Vendeur(Metadata):
     class Meta:
         verbose_name = "Vendeur (Vrai)"
         verbose_name_plural = "Vendeurs (Vrai)"
+        app_label = "encefal"
 
     # En attendant les scanners, ce champ est inutile.
     #code_carte_etudiante = models.IntegerField(null=False, blank=False,
@@ -81,6 +83,7 @@ class Reception(Vendeur):
         proxy = True
         verbose_name = "Vendeur"
         verbose_name_plural = "Vendeurs"
+        app_label = "encefal"
 
     def __unicode__(self):
         return ("Reception de livres de " + self.nom + ', ' + self.prenom)
@@ -118,12 +121,16 @@ class Session(Metadata):
     @staticmethod
     def session_null():
         return Session.objects.get(nom="/dev/null")
+        
+    class Meta:
+    	app_label = "encefal"
 
 
 
 ################################################################################
 # FACTURE (INVOICE)
 ################################################################################
+
 class Facture(Metadata):
     employe = models.ForeignKey(User, db_column='employe',
                                 related_name='factures',blank=True)
@@ -168,11 +175,15 @@ class Livre(Metadata):
 
     def __unicode__(self):
       return '%s [%s]' % (self.titre, self.auteur)
+      
+    class Meta:
+    	app_label = "encefal"
 
 
 class Vente(Facture):
     class Meta:
         proxy = True
+        app_label = "encefal"
 
     def __unicode__(self):
         return ""
@@ -191,41 +202,46 @@ ETAT_LIVRE_CHOICES = (
 )
 
 class Exemplaire(Metadata):
-    facture = models.ForeignKey(Facture, db_column='facture',
+
+	class Meta:
+		app_label = "encefal"
+		
+
+	facture = models.ForeignKey(Facture, db_column='facture',
                                 related_name='exemplaires', null=True,
                                 blank=True)
-    livre = models.ForeignKey(Livre, db_column='livre',
+	livre = models.ForeignKey(Livre, db_column='livre',
                               related_name='exemplaires',)
-    vendeur = models.ForeignKey(Vendeur, db_column='vendeur',
+	vendeur = models.ForeignKey(Vendeur, db_column='vendeur',
                                 related_name='exemplaires',)
-    etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES,
+	etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES,
                             default='VENT', verbose_name='État', )
-    prix = models.IntegerField(help_text="Le prix doit être un entier!")
+	prix = models.IntegerField(help_text="Le prix doit être un entier!")
 
-    def __unicode__(self):
-        return self.livre.__unicode__()
+	def __unicode__(self):
+		return self.livre.__unicode__()
 
-    def titre(self):
-        return (self.livre.titre)
-    titre.short_description = 'Titre'
+	def titre(self):
+		return (self.livre.titre)
+	titre.short_description = 'Titre'
 
-    def code_permanent_vendeur(self):
-        return (self.vendeur.code_permanent)
-    code_permanent_vendeur.short_description = 'Vendeur'
+	def code_permanent_vendeur(self):
+		return (self.vendeur.code_permanent)
+	code_permanent_vendeur.short_description = 'Vendeur'
 
-    def save(self,*args,**kwargs):
+	def save(self,*args,**kwargs):
 
-        code_permanent = self.vendeur.code_permanent
-        pk_vendeur_temp = self.vendeur.id
-        vendeur = None
+		code_permanent = self.vendeur.code_permanent
+		pk_vendeur_temp = self.vendeur.id
+		vendeur = None
 
-        try:
-            self.vendeur = (
+		try:
+			self.vendeur = (
                             Vendeur.objects.all().
                             exclude(pk=pk_vendeur_temp).
                             get(code_permanent=code_permanent)
                            )
-        except Vendeur.DoesNotExist:
-            pass
+		except Vendeur.DoesNotExist:
+			pass
 
-        super(Exemplaire,self).save(*args,**kwargs)
+		super(Exemplaire,self).save(*args,**kwargs)
