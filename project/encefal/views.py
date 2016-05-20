@@ -1,8 +1,4 @@
 # -*- encoding: utf-8 -*-
-
-# Changed render_to_response to render
-# since it will not be supported by django 1.10
-
 import json
 import urllib
 from lxml import html
