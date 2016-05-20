@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 """
 This file demonstrates two different styles of tests (one doctest and one
 unittest). These will both pass when you run "manage.py test".
@@ -17,6 +18,7 @@ class SimpleTest(TestCase):
 
 	# Creation des objets de test
 	def setUp(self):
+		print("Creating objects...")
 		Vendeur.objects.create(nom="Robert", prenom="Bob", code_permanent="ROBB11223300", email="bob.robert@truc.org")
 		vend = Vendeur.objects.get(nom="Robert")
 
@@ -24,11 +26,13 @@ class SimpleTest(TestCase):
 		liv = Livre.objects.get(titre="abc123")
 
 		Exemplaire.objects.create(livre=liv, vendeur=vend, etat="VENT", prix=10.05)
+		print("Objects created")
 
 	# Test de quelques methodes
 	def test1(self):
 
-		# Recuperation des objets precedemment cree
+		print("Testing previously created objects...")
+		# Recuperation des objets précédemment créé
 		vend = Vendeur.objects.get(nom="Robert")
 		liv = Livre.objects.get(titre="abc123")
 		exe = Exemplaire.objects.get(livre=liv)
@@ -37,6 +41,7 @@ class SimpleTest(TestCase):
 		self.assertEqual(vend.nb_livres(), 1)
 		self.assertEqual(liv.nb_exemplaires_en_vente(), 1)
 		self.assertEqual(exe.vendeur, vend)
+		print("Test complete!")
 
 __test__ = {"doctest": """
 Another way to test that 1 + 1 is equal to 2.
