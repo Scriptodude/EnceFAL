@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/AESSUQAM/EnceFAL.png?label=ready&title=Ready)](https://waffle.io/AESSUQAM/EnceFAL)
-[![Build Status](https://travis-ci.org/Scriptodude/EnceFAL.svg?branch=master)](https://travis-ci.org/Scriptodude/EnceFAL)
+[![Build Status](https://travis-ci.org/AESSUQAM/EnceFAL.svg?branch=develop)](https://travis-ci.org/AESSUQAM/EnceFAL)
 [![Coverage Status](https://coveralls.io/repos/github/AESSUQAM/EnceFAL/badge.svg?branch=master)](https://coveralls.io/github/AESSUQAM/EnceFAL?branch=master)
 # EnceFAL 
 
@@ -9,7 +9,7 @@ EnceFAL est un projet Django, qui vise à faciliter la gestion de foires aux liv
 
 ```
 # 1. cloner le repo
-git clone https://github.com/Scriptodude/EnceFAL.git
+git clone https://github.com/AESSUQAM/EnceFAL.git
 cd EnceFAL
 
 # 2. Créer un environnement python virtuel
