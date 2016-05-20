@@ -29,6 +29,7 @@ env:
 - DJANGO_VERSION=1.9.6
 
 #a executer avant l'installation
+#enleve tous les .pyc temporaire
 before_install:
 - pyclean .
 
