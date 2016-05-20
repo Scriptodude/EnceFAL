@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/AESSUQAM/EnceFAL.png?label=ready&title=Ready)](https://waffle.io/AESSUQAM/EnceFAL)
-[![Build Status](https://travis-ci.org/AESSUQAM/EnceFAL.svg?branch=master)](https://travis-ci.org/AESSUQAM/EnceFAL)
+[![Build Status](https://travis-ci.org/Scriptodude/EnceFAL.svg?branch=master)](https://travis-ci.org/Scriptodude/EnceFAL)
 [![Coverage Status](https://coveralls.io/repos/github/AESSUQAM/EnceFAL/badge.svg?branch=master)](https://coveralls.io/github/AESSUQAM/EnceFAL?branch=master)
 # EnceFAL 
 
