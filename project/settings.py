@@ -55,33 +55,30 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'phgxc&v+2@4--i(t^s_d3=1w+jhw=qr*6oo2j7po(z$5*x$hup'
 
-# List of callables that know how to import templates from various sources.
-#TEMPLATE_LOADERS = (
-#    'django.template.loaders.filesystem.Loader',
-#    'django.template.loaders.app_directories.Loader',
-#)
-
 DEBUG=False
-TEMPLATE_DEBUG=DEBUG
-
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, "templates"),],
-		# uncomment the following for automatic path searching
-        #'APP_DIRS': False,
+
+		# automatic path searching
+        'APP_DIRS': False,
         'OPTIONS': {
-			# Replaces the old TEMPLATE_DEBUG
+			# Replaces the old TEMPLATE DEBUG
 			'debug': DEBUG,
 
             'context_processors': [
+				'django.contrib.auth.context_processors.auth',
                	'django.template.context_processors.debug',
-               	'django.template.context_processors.request',
-				'django.contrib.auth.context_processors.auth',         					'django.contrib.messages.context_processors.messages',
+				'django.template.context_processors.i18n',
+				'django.template.context_processors.media',
+				'django.template.context_processors.static',
+				'django.template.context_processors.tz',
+      			'django.template.context_processors.request', 					'django.contrib.messages.context_processors.messages',
             ],
 
-			# Replaces TEMPLATE_LOADERS
+			# Replaces TEMPLATE LOADERS
 			'loaders': [
             	#'django.template.loaders.cached.Loader',
  					'django.template.loaders.filesystem.Loader',              					'django.template.loaders.app_directories.Loader',
@@ -99,18 +96,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.urls'
-AUTH_PASSWORD_REQUIRED = False
 
 LOGIN_REDIRECT_URL = "/employee/"
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-
-    # Generic way to add templates paths.LO
-    os.path.join(os.path.dirname(__file__), "templates"),
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -119,7 +106,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-     'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'bootstrap_toolkit',
     'project.encefal',
     # Uncomment the next line to enable admin documentation:
@@ -128,5 +115,3 @@ INSTALLED_APPS = (
 )
 
 STATIC_URL = '/static/'
-
-
