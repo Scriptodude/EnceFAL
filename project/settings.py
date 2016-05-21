@@ -11,7 +11,6 @@ ADMINS = (
     # ('Nilovna Bascunan-Vasquez', 'contact@nilovna.com'),
 )
 
-
 MANAGERS = ADMINS
 
 # Local time zone for this installation. Choices can be found here:
@@ -39,8 +38,8 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
-MEDIA_PRIVE_ROOT = os.path.join(os.path.dirname(__file__), 'media_prive')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+MEDIA_PRIVE_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media_prive')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -55,7 +54,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'phgxc&v+2@4--i(t^s_d3=1w+jhw=qr*6oo2j7po(z$5*x$hup'
 
-DEBUG=False
+DEBUG=True
 
 TEMPLATES = [
     {
@@ -87,6 +86,8 @@ TEMPLATES = [
     },
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR,'project', 'encefal', 'static')
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -94,6 +95,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
+
+BOOTSTRAP3 = {
+	'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/'
+}
 
 ROOT_URLCONF = 'project.urls'
 
