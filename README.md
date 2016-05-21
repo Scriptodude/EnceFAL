@@ -44,12 +44,12 @@ bin/django migrate --fake-initial
 bin/django runserver
 ```
 
-## Lancer les tests
+#### _**Lancer les tests**_
 
-'''
-#Si pas déjà dans le dossier du projet
+```
+# Si pas déjà dans le dossier du projet
 cd EnceFAL
 
-#On lance la suite de test de django
+# On lance la suite de test de django
 bin/django test
-'''
+```
