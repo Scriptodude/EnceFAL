@@ -11,42 +11,27 @@ language: python
 
 # 2- version du language
 #   note : la version par defaut de python est 2.7
-#   ex : python:
-#           - "2.6"
-#           - "3.0"
-#           - "pypy"
 python:
 - 2.6
 - 2.7
 - 3.4
 - pypy
 
-# 3- Test avec plusieurs versions de dependances (env)
-# env: [NOM_DePENDANCE=VERSION]
-#   ex: env:
-#           - DJANGO_VERSION=1.9.6
 env:
 - DJANGO_VERSION=1.9.6
 
 #a executer avant l'installation
-
 before_install:
 - pyclean .
 - sudo pip install virtualenv
 - virtualenv py_env
 - sudo py_env/bin/pip install --upgrade setuptools
 - sudo py_env/bin/pip install zc.buildout
-
+   
 # 4- install addons
 # install: ./[Script a executer]
-# Pour skipper => install: true
-#   ex : install:
-#           - pip install .
-#           - pip install -r [Chemin vers le fichier des pre-requis]
-# 4.1- Il est probable qu'on doit installer Django comme dependance
-#   install:
-#       - pip install -q Django==$DJANGO_VERSION
 install:
+- sudo py_env/bin/pip install coveralls
 - sudo py_env/bin/buildout
 - cd project
 - cp conf.py.edit conf.py
@@ -60,4 +45,7 @@ install:
 #   ex2: script: make test
 # note: si script est absent du fichier => message d'erreur + fail du build
 script:
-- bin/django test
+- py_env/bin/coverage run --source=EnceFAL bin/django test
+
+after_success:
+- py_env/bin/coveralls
