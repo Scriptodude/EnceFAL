@@ -45,7 +45,7 @@ install:
 #   ex2: script: make test
 # note: si script est absent du fichier => message d'erreur + fail du build
 script:
-- py_env/bin/coverage run --source=EnceFAL bin/django test
+- py_env/bin/coverage run bin/django test
 
 after_success:
 - py_env/bin/coveralls
