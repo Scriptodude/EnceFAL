@@ -1,5 +1,6 @@
 # -=- encoding: utf-8 -=-
 import datetime
+from django import forms
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -155,7 +156,10 @@ class Facture(Metadata):
 class Livre(Metadata):
     vendeur = models.ManyToManyField(Vendeur, db_column='vendeur',
                                      related_name='livres', through='Exemplaire')
-    isbn = models.CharField(max_length=13, blank=True, null=False, unique=True)
+    isbn = models.CharField(max_length=13, blank=True,
+			null=False, unique=True, 
+			verbose_name='ISBN du livre',
+			help_text='Scannez le code ISBN')
     titre = models.CharField(max_length=255, blank=True, )
     auteur = models.CharField(max_length=255, blank=True)
     edition = models.PositiveIntegerField(verbose_name='Édition', default=1,
@@ -201,6 +205,23 @@ ETAT_LIVRE_CHOICES = (
     ('REMB', 'Remboursé'),
 )
 
+### Field for prices ###
+### verify if the price is rounded 
+### (eg. 10.03 becomes 10.05
+class PriceField(models.DecimalField):
+	def validate(self, value, form):
+		"Check if the value is a valid Canadian price"
+
+		# Verification if it is an actual decimal
+		super(models.DecimalField, self).validate(value, form)
+
+		# is the price is a multiple of 5
+		if int(value*100) % 5 != 0:
+			raise forms.ValidationError(
+				"Le prix n'est pas un multiple de 5 cents",
+				code='erreur5')
+				
+
 class Exemplaire(Metadata):
 
 	class Meta:
@@ -214,11 +235,12 @@ class Exemplaire(Metadata):
                               related_name='exemplaires',)
 	vendeur = models.ForeignKey(Vendeur, db_column='vendeur',
                                 related_name='exemplaires',)
-	etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES,
-                            default='VENT', verbose_name='État', )
-	prix = models.DecimalField(default=0.00, max_digits=5,
-				decimal_places=2,
-				help_text='Doit être un prix valide entre 0.00 et 999.99')
+	etat = models.CharField(max_length=4,
+				choices=ETAT_LIVRE_CHOICES, 
+				default='VENT',
+				verbose_name='État', )
+	prix = PriceField(default=0.00, max_digits=5, decimal_places=2, 
+					help_text='Doit être entre 0 et 999.95')
 
 	def __unicode__(self):
 		return self.livre.__unicode__()
