@@ -1,9 +1,11 @@
 *.pyc
 *.pyo
 .installed.cfg
+.coverage
 bin
 develop-eggs
 dist
+py_env
 downloads
 eggs
 parts
@@ -11,6 +13,7 @@ src/*.egg-info
 .*.swp
 *~
 \#*#
+*.db
 *.sql
 encefal_dev
 conf.py
