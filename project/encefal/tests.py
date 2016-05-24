@@ -20,8 +20,7 @@ class SimpleTest(TestCase):
 	# Creation des objets de test
 	def setUp(self):
 		print("Creating objects...")
-		Vendeur.objects.create(nom="Robert", prenom="Bob",
-				code_permanent="ROBB11223300", email="bob.robert@truc.org")
+		Vendeur.objects.create(nom="Robert", prenom="Bob", code_permanent="ROBB11223300", email="bob.robert@truc.org")
 		vend = Vendeur.objects.get(nom="Robert")
 
 		Livre.objects.create(titre="abc123")
