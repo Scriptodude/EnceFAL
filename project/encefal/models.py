@@ -216,7 +216,9 @@ class Exemplaire(Metadata):
                                 related_name='exemplaires',)
 	etat = models.CharField(max_length=4, choices=ETAT_LIVRE_CHOICES,
                             default='VENT', verbose_name='État', )
-	prix = models.IntegerField(help_text="Le prix doit être un entier!")
+	prix = models.DecimalField(default=0.00, max_digits=5,
+				decimal_places=2,
+				help_text='Doit être un prix valide entre 0.00 et 999.99')
 
 	def __unicode__(self):
 		return self.livre.__unicode__()
