@@ -20,7 +20,9 @@ class SimpleTest(TestCase):
 	# Creation des objets de test
 	def setUp(self):
 		print("Creating objects...")
-		Vendeur.objects.create(nom="Robert", prenom="Bob", code_permanent="ROBB11223300", email="bob.robert@truc.org")
+		Vendeur.objects.create(nom="Robert", prenom="Bob",
+				code_permanent="ROBB11223300",
+				email="bob.robert@truc.org")
 		vend = Vendeur.objects.get(nom="Robert")
 
 		Livre.objects.create(titre="abc123")
@@ -28,14 +30,17 @@ class SimpleTest(TestCase):
 
 		# Objet non-valide a cause du prix
 		exemp = Exemplaire.objects.create(livre=liv, vendeur=vend,
-						etat="VENT", prix='10.03')
+					etat="VENT",
+					prix='10.03')
 		self.assertRaises(ValidationError, exemp.full_clean)
 		exemp.delete()
 
 		#Objet valide
 		try:
-			exemp = Exemplaire.objects.create(livre=liv, vendeur=vend,
-							etat="VENT", prix='10.05')
+			exemp = Exemplaire.objects.create(livre=liv,
+					vendeur=vend,
+					etat="VENT",
+					prix='10.05')
 			exemp.full_clean()
 		except forms.ValidationError:
 			self.fail("exemp.full_clean() a renvoyé une exception non-attendu")
