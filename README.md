@@ -1,6 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/AESSUQAM/EnceFAL.png?label=ready&title=Ready)](https://waffle.io/AESSUQAM/EnceFAL)
 [![Build Status](https://travis-ci.org/AESSUQAM/EnceFAL.svg?branch=develop)](https://travis-ci.org/AESSUQAM/EnceFAL)
-[![Coverage Status](https://coveralls.io/repos/github/AESSUQAM/EnceFAL/badge.svg?branch=master)](https://coveralls.io/github/AESSUQAM/EnceFAL?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/AESSUQAM/EnceFAL/badge.svg?branch=develop)](https://coveralls.io/github/AESSUQAM/EnceFAL?branch=develop)
 # EnceFAL 
 
 EnceFAL est un projet Django, qui vise à faciliter la gestion de foires aux livres usagés
@@ -44,12 +44,12 @@ bin/django migrate --fake-initial
 bin/django runserver
 ```
 
-## Lancer les tests
+#### _**Lancer les tests**_
 
 ```
-#Si pas déjà dans le dossier du projet
+# Si pas déjà dans le dossier du projet
 cd EnceFAL
 
-#On lance la suite de test de django
+# On lance la suite de test de django
 bin/django test
 ```
