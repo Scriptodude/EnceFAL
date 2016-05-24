@@ -157,9 +157,9 @@ class Livre(Metadata):
     vendeur = models.ManyToManyField(Vendeur, db_column='vendeur',
                                      related_name='livres', through='Exemplaire')
     isbn = models.CharField(max_length=13, blank=True,
-							null=False, unique=True, 
-							verbose_name='ISBN du livre',
-							help_text='Scannez le code ISBN')
+			null=False, unique=True, 
+			verbose_name='ISBN du livre',
+			help_text='Scannez le code ISBN')
     titre = models.CharField(max_length=255, blank=True, )
     auteur = models.CharField(max_length=255, blank=True)
     edition = models.PositiveIntegerField(verbose_name='Édition', default=1,
@@ -236,9 +236,9 @@ class Exemplaire(Metadata):
 	vendeur = models.ForeignKey(Vendeur, db_column='vendeur',
                                 related_name='exemplaires',)
 	etat = models.CharField(max_length=4,
-							choices=ETAT_LIVRE_CHOICES, 
-							default='VENT',
-							verbose_name='État', )
+				choices=ETAT_LIVRE_CHOICES, 
+				default='VENT',
+				verbose_name='État', )
 	prix = PriceField(default=0.00, max_digits=5, decimal_places=2, 
 					help_text='Doit être entre 0 et 999.95')
 
