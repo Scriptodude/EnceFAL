@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="page-content">
+    <h1 class=".hidden-xs">Voici la liste des livres disponibles à la foire aux livres.</h1>
+    <h1 class=".visible-xs">Livres disponibles.</h1>
+    <table id="livres" class="table table-hover livres">
+        <thead>
+            <th class="hidden-phone">ISBN</th>
+            <th>Titre</th>
+            <th class="hidden-phone">Auteur</th>
+            <th class="hidden-phone">Prix Moyen</th>
+            <th>Quantité</th>
+        </thead>
+        <tbody>
+            {% for livre in livres %}
+            <tr>
+
+                <td class="hidden-phone">{{ livre.isbn }}</td> 
+
+                <td>{{ livre.titre }}</td> 
+
+                <td class="hidden-phone">{{ livre.auteur }}</td> 
+
+    	    {% if livre.prix_moyen %}
+                <td class="hidden-phone">{{ livre.prix_moyen|floatformat:2 }}$</td> 
+    	    {% else %}
+                <td class="hidden-phone">N.A.</td> 
+    	    {% endif %}
+
+    	    {% if livre.nb_exemplaires_en_vente %}
+                <td>{{ livre.nb_exemplaires_en_vente }}</td> 
+    	    {% else %}
+                <td>N.A.</td> 
+    	    {% endif %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+
+<script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#livres').dataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bSort": false,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "oLanguage": {
+                "sEmptyTable": "Aucun livre n'est présentement en vente...",
+                "sZeroRecords": "Aucun livre ne correspond à cette recherche...",
+                "sSearch": "Recherche: "
+            }
+        });
+    } );
+</script>
+
+{% endblock %}  

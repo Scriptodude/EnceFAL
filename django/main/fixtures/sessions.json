@@ -1,0 +1,14 @@
+[
+	{	"model": "main.session",
+		"pk": 1,
+ 		"fields": {"nom": "Automne 2016", "date_fin": "2016-12-20", "actif": true, "date_creation": "2016-05-21", "date_modification": "2016-05-21",  "date_debut": "2016-09-03"}
+	}, 
+	{	"model": "main.session",
+		"pk": 2,
+		"fields": {"nom": "Hiver 2016", "date_fin": "2016-05-02", "actif": true, "date_creation": "2016-05-21", "date_modification": "2016-05-21",  "date_debut": "2016-01-07"}
+	},
+	{	"model": "main.session",
+		"pk": 3,
+		"fields": {"nom": "\u00c9t\u00e9 2016", "date_fin": "2016-07-25", "actif": true, "date_creation": "2016-05-21", "date_modification": "2016-05-21", "date_debut": "2016-05-05"}
+	}
+]

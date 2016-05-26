@@ -1,0 +1,263 @@
+/* $GENERAL
+-------------------------------------------------------------- */
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100%;
+  padding-top: 70px;
+  position: relative;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 1.33333;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2.8rem;
+  line-height: 1.6;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+h4, .section {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 2rem;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: 1.875rem;
+  line-height: 1.71429;
+  font-weight: bold;
+}
+
+input {
+  width: 180px;
+}
+
+/* $BUTTONS
+-------------------------------------------------------------- */
+.btn {
+  text-transform: uppercase;
+}
+
+.btn-small {
+  font-weight: 700;
+}
+
+.btn-large {
+  font-weight: 700;
+  margin: 0 30px;
+  padding: 20px 30px;
+}
+
+.btn-report {
+  margin: 0 15px 0 0;
+}
+
+/* $PAGE CONTENT
+-------------------------------------------------------------- */
+.page-content {
+  padding-top: 30px;
+}
+
+.breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+/* $INDEX EMPLOYEE
+-------------------------------------------------------------- */
+.primary-action-container {
+  margin-top: 250px;
+}
+
+.action-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
+/* $ADMIN
+-------------------------------------------------------------- */
+.user-tools {
+  padding: 1rem 10px;
+}
+
+.module {
+  border: 1px solid #dfdfdf;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px ;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+  .module .table {
+    margin-bottom: 0;
+  }
+
+  .recent-actions-module-title {
+    margin: 1rem;
+  }
+
+  .actionlist {
+    list-style: none;
+    margin: 0;
+  }
+
+    .actionlist small {
+      color: #6B6b6b;
+      padding-left: 1.2rem;
+    }
+
+    .actionlist li {
+      padding: 0.5rem 1rem;
+    }
+
+    .actionlist li:nth-child(odd) {
+      background-color: #f9f9f9;
+    }
+
+  .module caption,
+  .caption {
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #006dcc;
+    background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+    background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+    background-repeat: repeat-x;
+    border-color: #0044cc #0044cc #002a80;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0 ;
+    border-radius: 4px 4px 0 0;
+    padding: 0.5rem 0;
+  }
+
+    .section {
+      color: #ffffff;
+      font-weight: 600;
+      text-align: center;
+      margin: 0;
+    }
+
+    .section:active,
+    .section:hover {
+      color: #ffffff;
+    }
+
+  .object-tools {
+    list-style: none;
+    margin-top: 12px;
+    margin-right: 12px;
+  }
+
+  .search-wrapper {
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    border-bottom: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0 ;
+    border-radius: 4px 4px 0 0;
+    padding: 10px;
+
+  }
+
+    .search-wrapper label {
+      vertical-align: sub;
+      margin-bottom: 0;
+    }
+
+/* $CHANGE LIST
+-------------------------------------------------------------- */
+.changelist-form {
+  padding: 10px;
+}
+
+  .changelist-search {
+    margin: 0;
+  }
+
+  .table-results-head {
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0 ;
+    border-radius: 4px 4px 0 0;
+  }
+
+
+/* INLINE ADD FORM
+-------------------------------------------------------------- */
+.inline-group {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* $NAVBAR
+-------------------------------------------------------------- */
+.navbar .nav .navbar-header > li > a {
+  padding: 2rem;
+}
+
+/* $ VENTE
+-------------------------------------------------------------- */
+#p_total {
+  font-size: 24px;
+  font-weight: 600;
+  text-align:right;
+}
+
+/* $ RAPPORT
+-------------------------------------------------------------- */
+.table-report caption {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+/* $FACTURE
+-------------------------------------------------------------- */
+.table-facture tfoot td {
+  font-size: 1.2em;
+  font-weight: 700;
+  padding-right: 83px;
+  text-align: right;
+}
+
+/* Phone */
+@media only screen and (max-width: 760px) {
+  .hidden-phone{
+   display: none;
+   }
+}
+
+@media print {
+  #facture_form,
+  .navbar {
+    display:none;
+  }
+}
