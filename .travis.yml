@@ -33,11 +33,12 @@ before_install:
 install:
 - sudo py_env/bin/pip install coveralls
 - sudo py_env/bin/buildout
-- cd project
+- cd django/EnceFAL
 - cp conf.py.edit conf.py
 - cd ..
-- bin/django makemigrations
-- bin/django migrate --fake-initial
+- cd ..
+- django/manage.py makemigrations
+- django/manage.py migrate --fake-initial
 
 # 5- script de test
 # script: [quoi executer]
@@ -45,7 +46,7 @@ install:
 #   ex2: script: make test
 # note: si script est absent du fichier => message d'erreur + fail du build
 script:
-- py_env/bin/coverage run bin/django test
+- py_env/bin/coverage run django/manage.py test
 
 after_success:
 - py_env/bin/coveralls

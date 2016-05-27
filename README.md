@@ -31,17 +31,18 @@ http://www.saltycrane.com/blog/2010/02/how-install-pip-ubuntu/
 sudo py_env/bin/buildout
 
 # 5. Modifier les settings pour développement
-cd project
-cp conf.py.edit conf.py
+- cd django/EnceFAL
+- cp conf.py.edit conf.py
 # dans conf.py, editer les configs de la bd locale
 
 # 6. créer la bd locale.
-cd ..
-bin/django makemigrations
-bin/django migrate --fake-initial
+- cd ..
+- cd ..
+- django/manage.py makemigrations
+- django/manage.py migrate --fake-initial
 
 # 7. Lancer le serveur !
-bin/django runserver
+django/manage.py runserver
 ```
 
 #### _**Lancer les tests**_
@@ -51,5 +52,8 @@ bin/django runserver
 cd EnceFAL
 
 # On lance la suite de test de django
-bin/django test
+django/manage.py test
+
+# On peut aussi tester le serveur avec des données
+django/manage.py testserver sessions.json groupes.json
 ```
