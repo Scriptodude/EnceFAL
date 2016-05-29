@@ -23,17 +23,11 @@ from django.views.static import serve
 from main.views import accueil
 from employee.views import index_employee
 
-admin.autodiscover()
-
 urlpatterns = [
-	url(
-		r'^admin/',
-		admin.site.urls
-	),
-	
+
 	url(
 		r'^employee/',
-		include('employee.urls', namespace='employee'),
+		include('employee.urls')
 	),
 
 	url(

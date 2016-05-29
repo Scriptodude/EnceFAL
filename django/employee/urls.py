@@ -14,11 +14,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url, include
+
+from django.conf.urls import include, url
 from django.contrib import admin
-from employee.views import *
+from django.contrib.auth.views import logout
+from views import index_employee
+
+admin.autodiscover()
 
 urlpatterns = [
-	url(r'^$', index_employee),
-	url(r'^admin/', index_admin),
+	url(
+		r'^$',
+		index_employee
+	),
+
+	# Redirect to main page after logout
+	url(
+		r'^logout/$',
+		logout,
+		{'next_page': 'main:accueil'}
+	),
+
+	#Admin is now on /employee rather than /admin
+	url(
+		r'^',
+		admin.site.urls
+	),
+
+
 ]

@@ -4,6 +4,7 @@ import datetime
 import pdb
 
 from django.contrib import admin
+from django.contrib.admin import AdminSite
 from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
@@ -22,6 +23,10 @@ from main.models import (
                                     Vente, Facture
                                    )
 
+#Eventually modifiy this to manage admin website
+#and my_view as explained on docs.djangoproject.com/en/1.9/ref/contrib/admin/
+#class AdminEmployee(AdminSite):
+#	index_template="employee/index.html"
 
 class ExemplaireReceptionInline(admin.TabularInline):
 

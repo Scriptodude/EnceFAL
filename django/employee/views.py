@@ -7,5 +7,5 @@ def index_admin(request):
 
 @login_required()
 def index_employee(request):
-	return render(request, 'index.html')
+	return render(request, 'admin/index.html')
 

@@ -1,9 +1,12 @@
 {% extends "admin/base.html" %}
+{% load static %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block title %}_('EnceFAL site admin') }}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'employee:employee_home' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ _('Administration') }}
+<img style="height: 40px;" class="img-responsive" src="{% static 'images/logo_encefal.png' %}" alt="logo_encefal"></img>
+</a></h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

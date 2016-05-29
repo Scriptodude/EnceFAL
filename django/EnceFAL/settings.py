@@ -30,17 +30,20 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# The order is VERY important,
+# employee must come before django.contrib.admin
 
 INSTALLED_APPS = [
+	'main',
+	'employee',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+	#'django.contrib.admin.apps.SimpleAdminConfig',
     'django.contrib.staticfiles',
-	'main',
-	'employee',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -85,7 +88,7 @@ MEDIA_URL = '/media/'
 WSGI_APPLICATION = 'EnceFAL.wsgi.application'
 
 LOGIN_REDIRECT_URL = "/employee/"
-LOGIN_URL = "/admin/login/"
+LOGIN_URL = "/employee/login/"
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
