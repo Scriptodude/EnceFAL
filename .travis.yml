@@ -23,20 +23,22 @@ env:
 #a executer avant l'installation
 before_install:
 - pyclean .
-- sudo pip install --upgrade setuptools
-- sudo pip install zc.buildout
-   
+- sudo pip install virtualenv
+- virtualenv env
+- sudo env/bin/pip install --upgrade setuptools
+- sudo env/bin/pip install zc.buildout   
+
 # 4- install addons
 # install: ./[Script a executer]
 install:
-- sudo pip install coveralls
-- sudo buildout
+- sudo env/bin/pip install coveralls
+- sudo env/bin/buildout
 - cd django/EnceFAL
 - cp conf.py.edit conf.py
 - cd ..
 - cd ..
-- django/manage.py makemigrations
-- django/manage.py migrate --fake-initial
+- env/bin/python django/manage.py makemigrations
+- env/bin/python django/manage.py migrate --fake-initial
 
 # 5- script de test
 # script: [quoi executer]
@@ -44,8 +46,8 @@ install:
 #   ex2: script: make test
 # note: si script est absent du fichier => message d'erreur + fail du build
 script:
-- coverage run django/manage.py test
-- coverage run django/manage.py testserver sessions.json groupes.json
+- env/bin/coverage run django/manage.py test
+- env/bin/coverage run django/manage.py testserver sessions.json groupes.json
 
 after_success:
-- coveralls
+- env/bin/coveralls
