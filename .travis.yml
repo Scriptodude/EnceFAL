@@ -29,7 +29,7 @@ before_install:
 # 4- install addons
 # install: ./[Script a executer]
 install:
-- sudo env/bin/pip -r requirements.txt
+- sudo env/bin/pip install -r requirements.txt
 
 # After installing
 before_script:
