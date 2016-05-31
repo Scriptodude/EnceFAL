@@ -32,6 +32,7 @@ before_install:
 # install: ./[Script a executer]
 install:
 - sudo env/bin/pip install coveralls
+- sudo env/bin/pip install django==$DJANGO_VERSION
 - sudo env/bin/buildout
 - cd django/EnceFAL
 - cp conf.py.edit conf.py
