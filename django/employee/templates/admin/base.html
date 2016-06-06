@@ -3,7 +3,11 @@
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 	<head>
-		<title><title>{%block pagetitle %}Foire aux livres de l'AESS{% endblock pagetitle %} | EnceFAL</title></title>
+		<title>{%block pagetitle %}Foire aux livres de l'AESS{% endblock pagetitle %} | EnceFAL</title>
+		<!-- Comment the next two lines to remove semantics-ui (and the style!) -->
+		<link rel="stylesheet" type="text/css" href="{% static 'semantic/dist/semantic.min.css' %}">
+		<script src="{% static 'semantic/dist/semantic.min.js' %}"></script>
+
 		<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
 	    <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
     	<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
@@ -25,46 +29,79 @@
 <div id="container">
 
     {% if not is_popup %}
-    <!-- Header -->
-    <div id="header">
-        <div id="branding">
-        {% block branding %}{% endblock %}
-		<img style="height: 40px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
+    <!-- Menu -->
+    <div class="ui top menu">
+        <div class="item">
+        	{% block branding %}{% endblock %}
         </div>
-        {% block usertools %}
-        {% if has_permission %}
-        <div id="user-tools">
-            {% block welcome-msg %}
-                {% trans 'Welcome,' %}
-                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-            {% endblock %}
-            {% block userlinks %}
-                {% if site_url %}
-                    <a href="{{ site_url }}">{% trans 'View site' %}</a> /
-                {% endif %}
-                {% if user.is_active and user.is_staff %}
-                    {% url 'django-admindocs-docroot' as docsroot %}
-                    {% if docsroot %}
-                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
-                    {% endif %}
-                {% endif %}
-                {% if user.has_usable_password %}
-                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
-                {% endif %}
-                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
-            {% endblock %}
-        </div>
-        {% endif %}
-        {% endblock %}
-        {% block nav-global %}{% endblock %}
-    </div>
-    <!-- END Header -->
-    {% block breadcrumbs %}
+
+		{% if user.is_authenticated %}
+		<div class="item">
+			<a href="{% url 'admin:index' %}">Accueil</a>
+		</div>
+
+		<div class="item">
+			<a href="{% url 'main:accueil' %}">Retour au site</a>
+		</div>
+		
+		<div class="item">
+			<a href="{% url 'main:livres' %}">Livres</a>
+		</div>
+
+		<div class="divider item"></div>
+
+    	{% block usertools %}
+		{% if user.is_authenticated %}
+		<div class="ui simple dropdown link item">
+		{% block welcome-msg %}
+			<span class="text">
+	    		{% trans 'Welcome,' %}
+			    <strong>{% firstof user.get_short_name user.username %}</strong>
+			</span>
+			<i class="dropdown icon"></i>
+		{% endblock %}
+			<div class="menu">
+				<div class="header"> Actions </div>
+
+		{% block userlinks %}
+				
+	    {% if site_url %}
+	        	<a class="item" href="{{ site_url }}">{% trans 'View site' %}</a>
+	    {% endif %}
+	    {% if user.is_active and user.is_staff %}
+        {% url 'django-admindocs-docroot' as docsroot %}
+	        {% if docsroot %}
+	            <a class="item" href="{{ docsroot }}">{% trans 'Documentation' %}</a>
+	        {% endif %}
+	    {% endif %}
+	    {% if user.has_usable_password %}
+			<div class="item">
+				<a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
+			</div>
+		{% endif %}
+			<div class="item">
+				<a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+			</div>
+    	{% endblock %}
+		{% endif %}
+			
+    	{% endblock %}
+
+			</div> <!-- end submenu -->
+		</div> <!-- End dropdown -->
+		{% endif %} <!-- First user.is_authenticated -->
+	</div>
+	<!-- END Menu -->
+
+    {% block nav-global %}{% endblock %}
+
+
+    <!-- {% block breadcrumbs %}
     <div class="breadcrumbs">
-    <a href="{% url 'admin:employee_home' %}">{% trans 'Home' %}</a>
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
     {% if title %} &rsaquo; {{ title }}{% endif %}
     </div>
-    {% endblock %}
+    {% endblock %} -->
     {% endif %}
 
     {% block messages %}

@@ -4,6 +4,7 @@ import datetime
 import pdb
 
 from django.contrib import admin
+from django.contrib.admin import AdminSite
 from django.core.urlresolvers import reverse
 from django import forms
 from django.http import HttpResponseRedirect
@@ -22,6 +23,10 @@ from main.models import (
                                     Vente, Facture
                                    )
 
+#Eventually modifiy this to manage admin website
+#and my_view as explained on docs.djangoproject.com/en/1.9/ref/contrib/admin/
+#class AdminEmployee(AdminSite):
+#	index_template="employee/index.html"
 
 class ExemplaireReceptionInline(admin.TabularInline):
 
@@ -102,12 +107,12 @@ class VenteAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(VenteAdmin, self).__init__(*args, **kwargs)
-        self.model.session = Session.current_session()
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super(VenteAdmin, self).get_form(request, obj, **kwargs)
-        self.model.employe = request.user
-        return form
+	def get_form(self, request, obj=None, **kwargs):
+		form = super(VenteAdmin, self).get_form(request, obj, **kwargs)
+		self.model.session = Session.current_session()
+		self.model.employe = request.user
+		return form
 
     def save_model(self, request, obj, form, change):
         obj.employe_id = self.model.employe.id
