@@ -26,3 +26,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = None
 EMAIL_HOST_PASSWORD = None
 EMAIL_PORT = 587
+
+# MUST be removed before deploying
+CORS_ORIGIN_ALLOW_ALL = True
