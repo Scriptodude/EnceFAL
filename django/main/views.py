@@ -29,7 +29,7 @@ from models import (
 from django.conf import settings
 
 def accueil(request):
-    return render_to_response('encefal/index.html',
+    return render(request, 'encefal/index.html',
 {'next_session':Session.next_session(), 'current_session':Session.current_session()},
 RequestContext(request))
 
@@ -42,7 +42,7 @@ def livres(request):
             'livres':livres,
             }
 
-    return render_to_response('encefal/livres.html',
+    return render(request, 'encefal/livres.html',
             context, context_instance = RequestContext(request))
 
 def livre(request):
@@ -50,66 +50,73 @@ def livre(request):
     if not request.user.is_authenticated():
         return HttpResponseNotFound()
 
-    assert('isbn' in request.GET)
-    assert('nb' in request.GET)
-    assert(len(request.GET['isbn']) in [10,13])
+	print("Assert ISBN")
+	assert('isbn' in request.GET)
 
-    reponse = None
-    livre = None
-    isbn = request.GET['isbn']
-    nb = request.GET['nb']
+	print("Assert NB")
+	assert('nb' in request.GET)
 
-    try:
-        livre = Livre.objects.get(isbn=isbn)
-    except Livre.DoesNotExist:
-        pass
+	print("Assert Len")
+	assert(len(request.GET['isbn']) in [10,13])
 
-    if not livre:
-        query = ISBN_DB_BASE_QUERY.format(settings.ISBNDB_API_KEY, isbn)
-        reponse_query = json.load(urllib.urlopen(query))
-        if 'error' not in reponse_query:
-            reponse_query = reponse_query['data'][0]
+	print("Assert done !")
+	reponse = None
+	livre = None
+	isbn = request.GET['isbn']
+	nb = request.GET['nb']
 
-            titre = reponse_query['title'] if reponse_query['title'] else ''
-            auteur = reponse_query['author_data'][0]['name'] if reponse_query['author_data'] else ''
+	try:
+		livre = Livre.objects.get(isbn=isbn)
+	except Livre.DoesNotExist:
+		pass
+	
+	if not livre:
+		query = ISBN_DB_BASE_QUERY.format(settings.ISBNDB_API_KEY, isbn)
+		reponse_query = json.load(urllib.urlopen(query))
+		if 'error' not in reponse_query:
+			reponse_query = reponse_query['data'][0]
 
-            reponse = {'titre':titre,
-                       'auteur':auteur,
-                       'nb':nb}
-        else:
+			titre = reponse_query['title'] if reponse_query['title'] else ''
+			auteur = reponse_query['author_data'][0]['name'] if reponse_query['author_data'] else ''
 
-            query = COOP_UQAM_BASE_QUERY.format(isbn)
-            reponse_query = urllib.urlopen(query)
-            tree = html.fromstring(reponse_query.read())
+			reponse = {'titre':titre,
+					'auteur':auteur,
+					'nb':nb}
+		else:
 
-            titres = tree.cssselect("h3 a")
-            if titres:
+			query = COOP_UQAM_BASE_QUERY.format(isbn)
+			reponse_query = urllib.urlopen(query)
+			tree = html.fromstring(reponse_query.read())
 
-                titre = titres[0].text
+			titres = tree.cssselect("h3 a")
+			if titres:
 
-                auteur = tree.cssselect("h3 + p")[0].text_content().split(' : ')[1].split('\r')[0].strip()
+				titre = titres[0].text
 
-                reponse = {'titre':titre,
+				auteur = tree.cssselect("h3 + p")[0].text_content().split(' : ')[1].split('\r')[0].strip()
+
+				reponse = {'titre':titre,
                            'auteur':auteur,
                            'nb':nb}
 
-    else:
-        reponse = {'titre':livre.titre,
-                   'auteur':livre.auteur,
+	else:
+		reponse = {'titre':livre.titre,
+				'auteur':livre.auteur,
                    'nb':nb}
 
-    if reponse:
-        return HttpResponse(json.dumps(reponse), content_type="application/json")
-    else:
-        return HttpResponseNotFound()
+	if reponse:
+		return HttpResponse(json.dumps(reponse), content_type="application/json")
+	else:
+		return HttpResponseNotFound()
 
 def exemplaire(request):
 
     if not request.user.is_authenticated():
         return HttpResponseNotFound()
 
-    assert('identifiant' in request.GET)
-    assert('nb' in request.GET)
+	assert('identifiant' in request.GET)
+	assert('nb' in request.GET)
+	print("First asserts")
 
     nb = request.GET['nb']
     identifiant = request.GET['identifiant']
@@ -119,7 +126,9 @@ def exemplaire(request):
     except Exemplaire.DoesNotExist:
         return HttpResponseNotFound()
 
-    assert(exemplaire.livre)
+	print("second Asserts")
+	assert(exemplaire.livre)
+	print("Second asserts done")
 
     if exemplaire.etat != 'VENT':
         reponse = {
@@ -131,7 +140,7 @@ def exemplaire(request):
                    'status':'ok',
                    'titre':exemplaire.livre.titre,
                    'auteur':exemplaire.livre.auteur,
-                   'prix':exemplaire.prix,
+                   'prix':float(exemplaire.prix),
                    'isbn':exemplaire.livre.isbn,
                    'nb':nb
                   }
@@ -163,44 +172,10 @@ def vendeur(request):
 
     return HttpResponse(json.dumps(reponse), content_type="application/json")
 
-def rapport(request):
-
-    if 'date' in request.GET:
-        date = request.GET['date']
-        date = datetime.strptime(date,"%Y-%m-%d")
-    else:
-        date = datetime.today()
-
-    lendemain = date + timedelta(days=1)
-
-    # on met les deux dates a minuit
-    date = date.replace(hour=0, minute=0, second=0)
-    lendemain = lendemain.replace(hour=0, minute=0, second=0)
-
-    ajoutes = Exemplaire.objects.all().filter(date_creation__gt=date,
-                                              date_creation__lt=lendemain)
-    factures = Facture.objects.all().filter(date_creation__gt=date,
-                             date_creation__lt=lendemain)
-
-    nb_ajoutes = ajoutes.count()
-    nb_factures = factures.count()
-    nb_vendus = sum([f.nb_livres() for f in factures])
-    prix_total_vendu = sum([f.prix_total() for f in factures])
-
-    context = {
-        'nb_ajoutes':nb_ajoutes,
-        'nb_factures':nb_factures,
-        'date':date.date(),
-        'nb_vendus':nb_vendus,
-        'prix_total_vendu':prix_total_vendu,
-    }
-
-    return render_to_response('encefal/rapport.html', context)
-
 def factures(request):
 
-    #if not request.user.is_authenticated():
-    #    return HttpResponseNotFound()
+    if not request.user.is_authenticated():
+        return HttpResponseNotFound()
 
     if 'id' in request.GET and request.GET['id']:
         id_facture = request.GET['id']
@@ -217,5 +192,5 @@ def factures(request):
         'facture':facture,
     }
 
-    return render_to_response('encefal/factures.html', context)
+    return render(request, 'encefal/factures.html', context)
 

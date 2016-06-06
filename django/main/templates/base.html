@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 {% load staticfiles %}
+{% load admin_urls %}
 
 <html>
   <head>
@@ -10,8 +11,8 @@
     <meta name="description" content="">
     <title>{%block pagetitle %}Foire aux livres de l'AESS{% endblock pagetitle %} | EnceFAL</title>
 
-	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Comment the next line to remove semantics-ui (and the style!) -->
+	<link rel="stylesheet" type="text/css" href="{% static 'semantic/dist/semantic.min.css' %}">
 
 
     <!--[if lt IE 9]>
@@ -24,35 +25,42 @@
     
     {% block extra_head %}{% endblock %}
 
+	<!-- Comment the next line to remove semantics-ui (and the style!) -->
+	<script src="{% static 'semantic/dist/semantic.min.js' %}"></script>	
+
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-	  <div class="container">
-        <div class="navbar-header">
-          <a class="brand" href="{% url 'main:accueil' %}">
-            {% block branding %}{% endblock branding %}
-            <img style="height: 40px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
-          </a>
-		</div>
+    <!-- Menu -->
+    <div class="ui fixed borderless top menu">
+		<div class="ui container">
+		    <div class="item">
+		      <a href="{% url 'main:accueil' %}">
+		        {% block branding %}{% endblock branding %}
+		        <img style="height: 40px;" class="img-responsive" src="{% static 'images/logo_encefal.png' %}" alt="logo_encefal"></img>
+		      </a>
+			</div>
 
-		
-      <ul class="nav navbar-nav">
-		<li>
-			<a href="/">Accueil</a>
-		</li>
-        <li>
-          <a href="/livres">Livres</a>
-        </li>
-        <li>
-          <a href="/factures">Factures</a>
-        </li>
-      </ul>
-    </div> <!-- container -->
-  </nav>
-    <div class="container">
+			<div class="item">
+				<a href="/">Accueil</a>
+			</div>
+		    <div class="item">
+		      <a href="/livres">Livres</a>
+		    </div>
+		    <div class="item">
+		      <a href="/factures">Factures</a>
+		    </div>
+			
+			<div class="ui right secondary menu">
+				<div class="item">
+					<a class="ui primary button" href="{% url 'admin:login' %}">Employés</a>
+				</div>
+			</div>
+
+		</div> <!-- END Text container -->
+    </div> <!-- END menu -->
+   <div class="ui container">
       {% block content %}{% endblock content %}
     </div>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
 </html>
