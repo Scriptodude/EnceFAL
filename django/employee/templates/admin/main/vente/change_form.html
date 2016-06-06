@@ -6,9 +6,9 @@
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
-<script src="{{ STATIC_URL }}js/encefal.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/encefal.js"></script>
 {{ media }}
-{% endblock %}
+{% endblock %}</script>
 
 {% block content %}{{ block.super }}
 <p id="p_total">Total: <span id="total">0</span>$</p>
