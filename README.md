@@ -1,6 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/AESSUQAM/EnceFAL.png?label=ready&title=Ready)](https://waffle.io/AESSUQAM/EnceFAL)
 [![Build Status](https://travis-ci.org/AESSUQAM/EnceFAL.svg?branch=develop)](https://travis-ci.org/AESSUQAM/EnceFAL)
-[![Coverage Status](https://coveralls.io/repos/github/AESSUQAM/EnceFAL/badge.svg?branch=master)](https://coveralls.io/github/AESSUQAM/EnceFAL?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/AESSUQAM/EnceFAL/badge.svg?branch=develop)](https://coveralls.io/github/AESSUQAM/EnceFAL?branch=develop)
 # EnceFAL 
 
 EnceFAL est un projet Django, qui vise à faciliter la gestion de foires aux livres usagés
@@ -31,25 +31,29 @@ http://www.saltycrane.com/blog/2010/02/how-install-pip-ubuntu/
 sudo py_env/bin/buildout
 
 # 5. Modifier les settings pour développement
-cd project
-cp conf.py.edit conf.py
+- cd django/EnceFAL
+- cp conf.py.edit conf.py
 # dans conf.py, editer les configs de la bd locale
 
 # 6. créer la bd locale.
-cd ..
-bin/django makemigrations
-bin/django migrate --fake-initial
+- cd ..
+- cd ..
+- django/manage.py makemigrations
+- django/manage.py migrate --fake-initial
 
 # 7. Lancer le serveur !
-bin/django runserver
+django/manage.py runserver
 ```
 
-## Lancer les tests
+#### _**Lancer les tests**_
 
 ```
-#Si pas déjà dans le dossier du projet
+# Si pas déjà dans le dossier du projet
 cd EnceFAL
 
-#On lance la suite de test de django
-bin/django test
+# On lance la suite de test de django
+django/manage.py test
+
+# On peut aussi tester le serveur avec des données
+django/manage.py testserver sessions.json groupes.json
 ```

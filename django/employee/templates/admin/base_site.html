@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}_('EnceFAL site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ _('Administration') }}
+<img style="height: 40px;" class="img-responsive" src="{% static 'images/logo_encefal.png' %}" alt="logo_encefal"></img>
+</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

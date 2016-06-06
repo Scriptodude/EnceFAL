@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-content">
+
+      <h1 class="ui header">Foire aux livres usagés de l'AESS</h1>
+      <p>Venez vendre vos livres usagés ou en acheter à bas prix!</p>
+
+      <h2 class="ui header">Horaire</h2>
+
+      {% if current_session %}
+        <p> La foire aux livres est présentement ouverte, et ce jusqu'au {{current_session.date_fin}}.</p>
+      {% elif next_session %}
+        <p> La foire aux livres est présentement fermée, mais ouvrira dès le {{next_session.date_debut}}.</p>
+      {% else %}
+        <p> La foire aux livres est présentement fermée.</p>
+      {% endif %}
+
+      <h2 class="ui header">Emplacement</h2>
+      <p>Dans le hall du pavillon SH, à côté du café Sain Fractal.</p>
+
+      <h2 class="ui header">Procédure pour vendre des livres:</h2>
+      <ul>
+          <li>Dès le début de la foire aux livres, présentez-vous avec vos livres dans le hall du SH, au comptoir de la foire.</li>
+          <li>Enregistrez-vous, ainsi que vos livres, auprès du ou de la commis.</li>
+          <li>Choisissez un moment pour venir chercher vos livres/chèque et revenez à cette date convenue au même endroit.
+      </ul>
+
+      <h2 class="ui header">Livres en vente à la foire aux livres</h2>
+      <p>Vous pouvez désormais consulter la liste des livres en vente à la foire aux livres, en temps réel dans la section <a href="/livres">Livres</a></p>
+
+  </div>
+{% endblock content %}

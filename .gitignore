@@ -1,9 +1,11 @@
 *.pyc
 *.pyo
 .installed.cfg
+.coverage
 bin
 develop-eggs
 dist
+py_env
 downloads
 eggs
 parts
@@ -12,6 +14,7 @@ src/*.egg-info
 *~
 \#*#
 *.sql
+*.db
 encefal_dev
 conf.py
 django.wsgi

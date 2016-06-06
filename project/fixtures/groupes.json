@@ -1,6 +1,0 @@
-[
-	{	"model": "auth.group",
-		"pk": 1,
-		"fields": {"name": "employe", "permissions": [19, 40, 41, 31, 37, 38, 33, 34, 35, 25, 22, 26, 23]}
-	}
-]

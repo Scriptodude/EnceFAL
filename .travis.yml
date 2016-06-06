@@ -24,20 +24,21 @@ env:
 before_install:
 - pyclean .
 - sudo pip install virtualenv
-- virtualenv py_env
-- sudo py_env/bin/pip install --upgrade setuptools
-- sudo py_env/bin/pip install zc.buildout
-   
+- virtualenv env
+
 # 4- install addons
 # install: ./[Script a executer]
 install:
-- sudo py_env/bin/pip install coveralls
-- sudo py_env/bin/buildout
-- cd project
+- sudo env/bin/pip install -r requirements.txt
+
+# After installing
+before_script:
+- cd django/EnceFAL
 - cp conf.py.edit conf.py
 - cd ..
-- bin/django makemigrations
-- bin/django migrate --fake-initial
+- cd ..
+- env/bin/python django/manage.py makemigrations
+- env/bin/python django/manage.py migrate
 
 # 5- script de test
 # script: [quoi executer]
@@ -45,7 +46,7 @@ install:
 #   ex2: script: make test
 # note: si script est absent du fichier => message d'erreur + fail du build
 script:
-- py_env/bin/coverage run bin/django test
+- env/bin/coverage run --omit=*.virtualenv*,*virtualenv*,*env* django/manage.py test --cover-package=main,employee main employee
 
 after_success:
-- py_env/bin/coveralls
+- env/bin/coveralls

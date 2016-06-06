@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="page-content">
+    <form action="" method="get" id="facture_form" class="form-inline hide-print">
+        <p>
+            Veuillez saisir le numero de votre facture, obtenu 
+            auprès du personnel de la foire lors de votre transaction.
+        </p>
+        <label for="no_facture" class="control-label">Numéro de facture:
+            <input id="no_facture" name="id" class="input-mini" size="16" type="text" value="">
+            <button class="btn btn-primary" type="submit">Visualiser facture</button>
+        </label>
+    </form>
+    <hr>
+    {% if facture %}
+    <div class="facture-wrap">
+      <img style="float: left;width: 120px;margin-right: 20px;" class="img-responsive" src="{% get_static_prefix %}images/logo_encefal.png" alt="logo_encefal"></img>
+      <h5>Facture #{{ facture.id }}</h5>
+      <p>Transaction effectuée le {{ facture.date_creation }}</p>
+      <p>Servi par {{ facture.employe }}</p>
+        <table class="ui table table-striped table-facture">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>ISBN</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+            {% for exemplaire in facture.exemplaires.all %}
+            <tr>
+                <td>{{ exemplaire.id }}</td>
+                <td>{{ exemplaire.livre.isbn }}</td>
+                <td>{{ exemplaire.livre.titre }}</td>
+                <td>{{ exemplaire.livre.auteur }}</td>
+                <td>{{ exemplaire.prix }} $</td>
+            </tr>
+            {% endfor %}
+            <tfoot>
+                <tr>
+                    <td colspan="5">Total: {{ facture.prix_total }} $</td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+    {% else %}
+        {% if facture != 0 %}
+            <p>Aucune facture n'existe avec ce numéro!</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
+
