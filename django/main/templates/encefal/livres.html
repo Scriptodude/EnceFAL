@@ -2,9 +2,9 @@
 {% block content %}
 
 <div class="page-content">
-
-    <h1 class="ui header">Voici la liste des livres disponibles à la foire aux livres.</h1>
-    <table id="livres" class="ui table table-hover livres">
+    <h1 class=".hidden-xs">Voici la liste des livres disponibles à la foire aux livres.</h1>
+    <h1 class=".visible-xs">Livres disponibles.</h1>
+    <table id="livres" class="table table-hover livres">
         <thead>
             <th class="hidden-phone">ISBN</th>
             <th>Titre</th>
@@ -38,7 +38,7 @@
             {% endfor %}
         </tbody>
     </table>
-
+    
 </div>
 
 <script src="{{STATIC_URL}}js/jquery.dataTables.min.js"></script>

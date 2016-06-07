@@ -3,7 +3,7 @@ from django.forms import ModelForm,Form, TextInput
 from django.forms import IntegerField, CharField, DecimalField
 from models import Exemplaire,Vendeur,Livre,ETAT_LIVRE_CHOICES
 
-class IsbnTextInput(TextInput): # pragma: no cover
+class IsbnTextInput(TextInput):
 
 	def __init__(self, attrs=None):
 		if attrs:
@@ -14,7 +14,7 @@ class IsbnTextInput(TextInput): # pragma: no cover
 		super(TextInput, self).__init__(attrs) 
 		
 
-class IdentifiantTextInput(TextInput): # pragma: no cover
+class IdentifiantTextInput(TextInput):
 
 	def __init__(self, attrs=None):
 		if attrs:
@@ -29,7 +29,7 @@ class ExemplaireReceptionForm(ModelForm):
 	#exclude = ( 'actif', 'livre', 'etat' )
 
 
-	isbn = CharField( #pragma: no cover
+	isbn = CharField(
                      required=True, 
                      help_text="Scannez le code barre du livre",
                      label="ISBN",
@@ -37,13 +37,13 @@ class ExemplaireReceptionForm(ModelForm):
                      max_length=13
                     )
 
-	titre = CharField(required=True,  #pragma: no cover
+	titre = CharField(required=True, 
                       label="Titre",
-                      help_text="Titre du livre")
+                      help_text="Titre")
 
-	auteur = CharField(required=True, #pragma: no cover
+	auteur = CharField(required=True, 
                        label="Auteur",
-                       help_text="Auteur du livre")
+                       help_text="Auteur")
     
 	def clean(self):
 		cleaned_data = super(ExemplaireReceptionForm, self).clean()
@@ -58,7 +58,7 @@ class ExemplaireReceptionForm(ModelForm):
         
 		return cleaned_data
 
-	class Meta: #pragma: no cover
+	class Meta:
 		model = Exemplaire
 		exclude = ( 'actif', 'livre', 'etat' )
 		
@@ -66,26 +66,25 @@ class ExemplaireReceptionForm(ModelForm):
 class ExemplaireVenteForm(ModelForm):
 	#exclude = ( 'actif', 'livre', 'etat' )
 	
-	isbn = CharField(required=True, #pragma: no cover
+	isbn = CharField(required=True,
 					help_text="Scannez le code barre du livre",
 					label="ISBN",
-					widget=IsbnTextInput,
 					max_length=13)
 
-	titre = CharField(	required=True, #pragma: no cover
+	titre = CharField(	required=True, 
                       	label="Titre",
                       	help_text="Titre")
 
-	identifiant = IntegerField(	required=True, #pragma: no cover
+	identifiant = IntegerField(	required=True, 
                       	label="Identifiant",
-                      	help_text="Identifiant du livre (voir Exemplaires)",
+                      	help_text="Identifiant",
                       	widget=IdentifiantTextInput)
 
-	auteur = CharField(	required=True,  #pragma: no cover
+	auteur = CharField(	required=True, 
                        	label="Auteur",
                        	help_text="Auteur")
     
-	prix = DecimalField(	required=True, #pragma: no cover
+	prix = DecimalField(	required=True, 
                         	label="Prix demandé",
                         	help_text="Prix")
 
@@ -96,7 +95,7 @@ class ExemplaireVenteForm(ModelForm):
 		self.instance.save()
 		return cleaned_data
 
-	class Meta: #pragma: no cover
+	class Meta:
 		model = Exemplaire
 		exclude = ( 'actif', 'livre', 'etat' )
 

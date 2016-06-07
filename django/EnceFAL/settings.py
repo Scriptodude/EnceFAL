@@ -36,7 +36,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 	'main',
 	'employee',
-	'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -45,11 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
 	#'django.contrib.admin.apps.SimpleAdminConfig',
     'django.contrib.staticfiles',
-	'django_nose',
 ]
 
 MIDDLEWARE_CLASSES = [
-	'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -92,14 +89,6 @@ WSGI_APPLICATION = 'EnceFAL.wsgi.application'
 
 LOGIN_REDIRECT_URL = "/employee/"
 LOGIN_URL = "/employee/login/"
-
-#### Tests config ####
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS=[
-	'--with-coverage'
-]
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

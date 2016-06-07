@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import logout
-from views import index_employee, rapport
+from views import index_employee
 
 admin.autodiscover()
 
@@ -25,11 +27,6 @@ urlpatterns = [
 		r'^$',
 		index_employee
 	),
-
-	url(
-		r'^rapport/$',
-		rapport,
-		name='rapport'),
 
 	# Redirect to main page after logout
 	url(
@@ -43,4 +40,6 @@ urlpatterns = [
 		r'^',
 		admin.site.urls
 	),
+
+
 ]

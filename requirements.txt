@@ -13,4 +13,3 @@ lxml				# Required by some files to decode html
 
 #### Coverall requirements ####
 coveralls
-django-nose

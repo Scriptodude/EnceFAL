@@ -1,39 +1,38 @@
 {% extends "admin/base_site.html" %}
 
 {% block content %}
-<div class="ui three column fixed centered grid">
+  <div class="primary-action-container action-container">
 
-  <a href="{% url 'admin:main_reception_add' %}" 
-	 class="ui labeled icon huge blue button">
-  <i class="plus square outline icon"></i>
-  Ajouter livre(s)
-  </a>
-	<a href="{% url 'admin:main_vente_add' %}"
-	   class="ui labeled icon huge green button">
-	  <i class="shop icon"></i>
-	  Vendre livre(s)
-	</a>
+      <a href="{% url 'admin:main_reception_add' %}" 
+         class="btn btn-inverse btn-large btn-add-book">
+      <i class="icon-plus-sign icon-white"></i>
+      Ajouter livre(s)
+    </a>
 
-	<a href="{% url 'admin:main_vente_changelist' %}"
-	   class="ui labeled icon huge red button">
-	  <i class="remove square outline icon"></i>
-	  Annuler vente(s)
-	</a>
+    <a href="{% url 'admin:main_vente_add' %}"
+       class="btn btn-primary btn-large btn-sell-book">
+      <i class="icon-shopping-cart icon-white"></i>
+      Vendre livre(s)
+    </a>
 
-  <div class="row">
-	
-	<a href="{% url 'admin:main_exemplaire_changelist' %}"
-	   class="ui labeled icon huge purple button">
-	  <i class="book icon"></i>
-	  Voir exemplaires
-	</a>
-	{% if user.is_superuser %}
-	<a href="{% url 'rapport' %}"
-	   class="ui labeled icon huge yellow button">
-	  <i class="list icon"></i>
-	  Voir rapports des ventes
-	</a>
-	{% endif %}
+    <a href="{% url 'admin:main_vente_changelist' %}"
+       class="btn btn-primary btn-large  btn-danger btn-cancel-sell">
+      <i class="icon-remove-sign icon-white"></i>
+      Annuler vente(s)
+    </a>
   </div>
-</div> <!-- grid -->
+  <div class="action-container">
+    <a href="{% url 'admin:main_exemplaire_changelist' %}"
+       class="btn btn-primary btn-large btn-info btn-report">
+      <i class="icon-book icon-white"></i>
+      Voir exemplaires
+    </a>
+  {% if user.is_superuser %}
+    <a href="{% url 'main:rapport' %}"
+       class="btn btn-primary btn-large btn-info btn-report">
+      <i class="icon-list-alt icon-white"></i>
+      Voir rapports des ventes
+    </a>
+  {% endif %}
+  </div>
 {% endblock content %}

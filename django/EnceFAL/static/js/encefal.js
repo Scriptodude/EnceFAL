@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(document).ready(function () {
+
     actualiserTotal = function () {
 
         total = 0;
@@ -13,7 +14,7 @@ $(document).ready(function() {
 
             if ($(this).val()){
                 total = $('#total');
-                nouveau = (parseFloat(total.text()) + parseFloat($(this).val())).toFixed(2);
+                nouveau = parseInt(total.text()) + parseInt($(this).val());
                 total.text(nouveau);
             }
 
@@ -80,7 +81,7 @@ $(document).ready(function() {
 
                 } else {
 
-                    alert("Impossible de trouver l'exemplaire, se référer aux 'exemplaires disponibles'");
+                    // #TODO afficher l'erreur à l'utilisateur (nilo plz)
                 }
 
             }
@@ -121,5 +122,4 @@ $(document).ready(function() {
     }
 
 
-
-})
+});

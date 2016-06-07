@@ -28,7 +28,7 @@ from main.models import (
 #class AdminEmployee(AdminSite):
 #	index_template="employee/index.html"
 
-class ExemplaireReceptionInline(admin.TabularInline): #pragma: no cover
+class ExemplaireReceptionInline(admin.TabularInline):
 
     exclude = ['facture', 'actif', 'etat', 'livre']
     model = Exemplaire
@@ -36,7 +36,7 @@ class ExemplaireReceptionInline(admin.TabularInline): #pragma: no cover
     fields = ['isbn', 'titre', 'auteur', 'prix']
     extra = 5
 
-class ExemplaireVenteInline(admin.TabularInline): #pragma: no cover
+class ExemplaireVenteInline(admin.TabularInline):
 
     exclude = [ 'actif', 'etat', 'livre']
     model = Exemplaire
@@ -44,7 +44,7 @@ class ExemplaireVenteInline(admin.TabularInline): #pragma: no cover
     fields = ['identifiant','isbn', 'titre', 'auteur', 'prix']
     extra = 5
 
-class SessionAdmin(admin.ModelAdmin): #pragma: no cover
+class SessionAdmin(admin.ModelAdmin):
     exclude = ('actif',)
     list_display = ('nom', 'date_debut', 'date_fin',)
 
@@ -105,46 +105,46 @@ annuler_vente.short_description = "Annuler la ou les vente(s) selectionnée(s)"
 
 class VenteAdmin(admin.ModelAdmin):
 
-	def __init__(self, *args, **kwargs):
-		super(VenteAdmin, self).__init__(*args, **kwargs)
-		
+    def __init__(self, *args, **kwargs):
+        super(VenteAdmin, self).__init__(*args, **kwargs)
+
 	def get_form(self, request, obj=None, **kwargs):
-		self.model.session = Session.current_session()
 		form = super(VenteAdmin, self).get_form(request, obj, **kwargs)
+		self.model.session = Session.current_session()
 		self.model.employe = request.user
 		return form
 
-	def save_model(self, request, obj, form, change):
-		obj.employe_id = self.model.employe.id
+    def save_model(self, request, obj, form, change):
+        obj.employe_id = self.model.employe.id
         # If the book is from this session
-		if not self.model.session:
-			session = Session.session_null()
-		else:
-			session = self.model.session
-		obj.session_id = session.id
-		obj.save()
+        if not self.model.session:
+            session = Session.session_null()
+        else:
+            session = self.model.session
+        obj.session_id = session.id
+        obj.save()
 
     #TODO: utiliser url reverser admin_index ??
-	def response_add(self, request, obj, post_url_continue=None):
-		return HttpResponseRedirect('/factures/?id=' + str(obj.id))
+    def response_add(self, request, obj, post_url_continue=None):
+        return HttpResponseRedirect('/factures/?id=' + str(obj.id))
 
-	def has_change_permission(self, request, obj=None):
-		return obj is None or False
+    def has_change_permission(self, request, obj=None):
+        return obj is None or False
 
-	def has_delete_permission(self, request, obj=None):
-		return obj is not None or False
+    def has_delete_permission(self, request, obj=None):
+        return obj is not None or False
 
-	def get_actions(self, request):
-		actions = { 'annuler_vente':(annuler_vente, 'annuler_vente', annuler_vente.short_description) }
-		return actions
+    def get_actions(self, request):
+        actions = { 'annuler_vente':(annuler_vente, 'annuler_vente', annuler_vente.short_description) }
+        return actions
 
-	model = Facture
-	readonly_fields = ('employe','session',)
-	fields = ('employe', 'session')
-	list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_total',)
-	exclude = ('actif',)
-	actions = [ annuler_vente ]
-	inlines = [ ExemplaireVenteInline, ]
+    model = Facture
+    readonly_fields = ('employe','session',)
+    fields = ('employe', 'session')
+    list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_total',)
+    exclude = ('actif',)
+    actions = [ annuler_vente ]
+    inlines = [ ExemplaireVenteInline, ]
 
 class LivreAdmin(admin.ModelAdmin):
     fields = ('isbn', 'titre', 'auteur', 'edition')
