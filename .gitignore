@@ -10,9 +10,12 @@ downloads
 eggs
 parts
 src/*.egg-info
+django/*.db
 .*.swp
 *~
+*.old
 \#*#
+*.db
 *.sql
 *.db
 encefal_dev
