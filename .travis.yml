@@ -46,8 +46,7 @@ before_script:
 #   ex2: script: make test
 # note: si script est absent du fichier => message d'erreur + fail du build
 script:
-- env/bin/coverage run django/manage.py test main
-- env/bin/coverage run django/manage.py test employee
+- env/bin/coverage run --omit=*.virtualenv*,*virtualenv*,env/* django/manage.py --cover-package=main, employee test main employee
 
 after_success:
 - env/bin/coveralls
