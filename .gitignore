@@ -17,6 +17,7 @@ django/*.db
 \#*#
 *.db
 *.sql
+*.db
 encefal_dev
 conf.py
 django.wsgi

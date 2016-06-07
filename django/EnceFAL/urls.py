@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.static import serve
 
-from main.views import accueil
+from main.views import *
 from employee.views import index_employee
 
 urlpatterns = [
