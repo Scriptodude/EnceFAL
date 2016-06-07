@@ -4,7 +4,6 @@ from django import forms
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.forms import ValidationError
 import urllib, json
 
 from django.core.mail import EmailMultiAlternatives
@@ -14,15 +13,17 @@ from django.template import Context
 ################################################################################
 # CONSTANTES (CONSTANTS)
 ################################################################################
-HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ/MM/AAAA"
+HELP_TEXT_FORMAT_DATE = "Le format de la date est JJ/MM/AAAA" #pragma: no cover
+
 #Ajouter une KEY propre a Encefal. On doit creer un compte sur isbndb
-ISBN_DB_BASE_QUERY = "http://isbndb.com/api/v2/json/{0}/book/{1}"
-COOP_UQAM_BASE_QUERY = "http://www.coopuqam.com/resultat-recherche.html?MotCle={0}"
+#{0} = API_KEY, {1} = livre
+ISBN_DB_BASE_QUERY = "http://isbndb.com/api/v2/json/{0}/book/{1}" #pragma: no cover
+COOP_UQAM_BASE_QUERY = "http://www.coopuqam.com/resultat-recherche.html?MotCle={0}" #pragma: no cover
 
 ################################################################################
 # ABSTRAIT (ABSTRACT)
 ################################################################################
-class Metadata(models.Model):
+class Metadata(models.Model): #pragma: no cover
     """
     actif == False : objet réputé supprimé.
     """
@@ -39,7 +40,7 @@ class Metadata(models.Model):
 # VENDEUR (SELLER)
 ################################################################################
 class Vendeur(Metadata):
-    class Meta:
+    class Meta: #pragma: no cover
         verbose_name = "Vendeur (Vrai)"
         verbose_name_plural = "Vendeurs (Vrai)"
         
@@ -48,11 +49,11 @@ class Vendeur(Metadata):
     #code_carte_etudiante = models.IntegerField(null=False, blank=False,
                                        #verbose_name="Code carte étudiante",
                                        #help_text="Scannez la carte étudiante")
-    nom = models.CharField(max_length=255)
-    prenom = models.CharField(max_length=255, verbose_name='Prénom', )
-    code_permanent = models.CharField(max_length=12)
-    email = models.EmailField(max_length=255, blank=False)
-    telephone = models.CharField(max_length=255, verbose_name='Téléphone',
+    nom = models.CharField(max_length=255) #pragma: no cover
+    prenom = models.CharField(max_length=255, verbose_name='Prénom', ) #pragma: no cover
+    code_permanent = models.CharField(max_length=12) #pragma: no cover
+    email = models.EmailField(max_length=255, blank=False) #pragma: no cover
+    telephone = models.CharField(max_length=255, verbose_name='Téléphone', #pragma : no cover
                                  blank=True)
 
     def __unicode__(self):
@@ -60,7 +61,7 @@ class Vendeur(Metadata):
 
     def nb_livres(self):
         return self.exemplaires.count()
-    nb_livres.short_description = 'Nombre de livres'
+    nb_livres.short_description = 'Nombre de livres' #pragma: no cover
 
     def envoyer_recu(self):
         '''
@@ -78,7 +79,7 @@ class Vendeur(Metadata):
         msg.attach_alternative(html_content, "text/html")
         msg.send(fail_silently=True)
 
-class Reception(Vendeur):
+class Reception(Vendeur): #pragma: no cover
     class Meta:
         proxy = True
         verbose_name = "Vendeur"
@@ -92,10 +93,10 @@ class Reception(Vendeur):
 # SESSION (SEMESTER)
 ################################################################################
 class Session(Metadata):
-    nom = models.CharField(max_length=255, unique=True, )
-    date_debut = models.DateField(verbose_name="Date début",
+    nom = models.CharField(max_length=255, unique=True, ) #pragma: no cover
+    date_debut = models.DateField(verbose_name="Date début", #pragma: no cover
                              help_text=HELP_TEXT_FORMAT_DATE, null=True, blank=True)
-    date_fin = models.DateField(help_text=HELP_TEXT_FORMAT_DATE, null=True, blank=True)
+    date_fin = models.DateField(help_text=HELP_TEXT_FORMAT_DATE, null=True, blank=True) #pragma: no cover
 
     def __unicode__(self):
         return '%s' % (self.nom)
@@ -118,8 +119,8 @@ class Session(Metadata):
 
         return reponse
 
-    @staticmethod
-    def session_null():
+    @staticmethod #pragma: no cover
+    def session_null(): 
         return Session.objects.get(nom="/dev/null")
  
 
@@ -129,9 +130,9 @@ class Session(Metadata):
 ################################################################################
 
 class Facture(Metadata):
-    employe = models.ForeignKey(User, db_column='employe',
+    employe = models.ForeignKey(User, db_column='employe', #pragma: no cover
                                 related_name='factures',blank=True)
-    session = models.ForeignKey(Session, db_column='session',
+    session = models.ForeignKey(Session, db_column='session', #pragma: no cover
                                 related_name='factures',blank=True)
 
     def __unicode__(self):
@@ -139,35 +140,35 @@ class Facture(Metadata):
 
     def nb_livres(self):
         return self.exemplaires.count()
-    nb_livres.short_description = 'Nombre de livres'
+    nb_livres.short_description = 'Nombre de livres' #pragma: no cover
 
     def prix_total(self):
         return sum([e.prix for e in self.exemplaires.all()]) or 0
-    prix_total.short_description = 'Prix total de la facture'
+    prix_total.short_description = 'Prix total de la facture' #pragma: no cover
 
 
 ################################################################################
 # LIVRE (BOOK)
 ################################################################################
 class Livre(Metadata):
-    vendeur = models.ManyToManyField(Vendeur, db_column='vendeur',
+    vendeur = models.ManyToManyField(Vendeur, db_column='vendeur', #pragma: no cover
                                      related_name='livres', through='Exemplaire')
-    isbn = models.CharField(max_length=13, blank=True,
+    isbn = models.CharField(max_length=13, blank=True, #pragma: no cover
 							null=False, unique=True, 
 							verbose_name='ISBN du livre',
 							help_text='Scannez le code ISBN')
-    titre = models.CharField(max_length=255, blank=True, )
-    auteur = models.CharField(max_length=255, blank=True)
-    edition = models.PositiveIntegerField(verbose_name='Édition', default=1,
+    titre = models.CharField(max_length=255, blank=True, ) #pragma: no cover
+    auteur = models.CharField(max_length=255, blank=True) #pragma: no cover
+    edition = models.PositiveIntegerField(verbose_name='Édition', default=1, #pragma: no cover
                                           blank=True, null=False,)
 
     def exemplaires_en_vente(self):
         return [e for e in self.exemplaires.all() if e.etat == 'VENT']
-    exemplaires_en_vente.short_description = 'Exemplaires en vente'
+    exemplaires_en_vente.short_description = 'Exemplaires en vente' #pragma: no cover
 
     def nb_exemplaires_en_vente(self):
         return len(self.exemplaires_en_vente())
-    nb_exemplaires_en_vente.short_description = 'Nombre d\'exemplaires en vente'
+    nb_exemplaires_en_vente.short_description = 'Nombre d\'exemplaires en vente' #pragma: no cover
 
     def prix_moyen(self):
         exemplaires = self.exemplaires_en_vente()
@@ -178,7 +179,7 @@ class Livre(Metadata):
       
 
 
-class Vente(Facture):
+class Vente(Facture): #pragma: no cover
     class Meta:
         proxy = True
         
@@ -190,7 +191,7 @@ class Vente(Facture):
 # EXEMPLAIRE (COPY)
 ################################################################################
 ### CHOICES ###
-ETAT_LIVRE_CHOICES = (
+ETAT_LIVRE_CHOICES = ( #pragma: no cover
     ('VENT', 'En vente'),
     ('VEND', 'Vendu'),
     ('PERD', 'Perdu'),
@@ -219,18 +220,18 @@ class PriceField(models.DecimalField):
 
 class Exemplaire(Metadata):
 
-	facture = models.ForeignKey(Facture, db_column='facture',
+	facture = models.ForeignKey(Facture, db_column='facture', #pragma: no cover
                                 related_name='exemplaires', null=True,
                                 blank=True)
-	livre = models.ForeignKey(Livre, db_column='livre',
+	livre = models.ForeignKey(Livre, db_column='livre', #pragma: no cover
                               related_name='exemplaires',)
-	vendeur = models.ForeignKey(Vendeur, db_column='vendeur',
+	vendeur = models.ForeignKey(Vendeur, db_column='vendeur', #pragma: no cover
                                 related_name='exemplaires',)
-	etat = models.CharField(max_length=4,
+	etat = models.CharField(max_length=4, #pragma: no cover
 							choices=ETAT_LIVRE_CHOICES, 
 							default='VENT',
 							verbose_name='État', )
-	prix = PriceField(default=0.00, max_digits=5, 
+	prix = PriceField(default=0.00, max_digits=5, #pragma: no cover
 					decimal_places=2,
 					help_text='Doit être entre 0 et 999.95')
 
@@ -239,11 +240,11 @@ class Exemplaire(Metadata):
 
 	def titre(self):
 		return (self.livre.titre)
-	titre.short_description = 'Titre'
+	titre.short_description = 'Titre' #pragma: no cover
 
 	def code_permanent_vendeur(self):
 		return (self.vendeur.code_permanent)
-	code_permanent_vendeur.short_description = 'Vendeur'
+	code_permanent_vendeur.short_description = 'Vendeur' #pragma: no cover
 
 	def save(self,*args,**kwargs):
 
