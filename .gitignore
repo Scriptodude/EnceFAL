@@ -7,6 +7,7 @@ develop-eggs
 dist
 py_env
 downloads
+env
 eggs
 parts
 src/*.egg-info
@@ -15,7 +16,6 @@ django/*.db
 *~
 *.old
 \#*#
-*.db
 *.sql
 *.db
 encefal_dev

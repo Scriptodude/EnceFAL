@@ -69,18 +69,46 @@
             </tr>
 
             <tr>
-                <td>Prix total des ventes:</td>
-                <td>
-                {% if prix_total_vendu %}
-                    {{ prix_total_vendu }}$
-                {% else %}
-                    0$
-                {% endif %}
-                </td>
+                <td>Prix total des ventes {% if taxables %} (avant taxes) {% endif %}:</td>
+				<td>
+				{% if prix_total_avant_taxes %}
+					{{ prix_total_avant_taxes|floatformat:"2" }}$
+				{% else %}
+					0$
+				{% endif %}
+				</td>
             </tr>
-
-
-
+			{% if taxable %}
+			<tr>
+				<td>TPS:</td>
+				<td>
+				{% if prix_tps %}
+					{{ prix_tps|floatformat:"2" }}$
+				{% else %}
+					0$
+				{% endif %}
+				</td>
+			</tr>
+				<td>TVQ:</td>
+				<td>
+				{% if prix_tvq %}
+					{{ prix_tvq|floatformat:"2" }}$
+				{% else %}
+					0$
+				{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>Prix total:</td>
+				<td>
+				{% if prix_total_taxes %}
+					{{ prix_total_taxes|floatformat:"2" }}$
+				{% else %}
+					0$
+				{% endif %}
+				</td>
+			</tr>
+			{% endif %}
         </table>
 
     </div>
