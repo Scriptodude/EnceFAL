@@ -141,7 +141,7 @@ class VenteAdmin(admin.ModelAdmin):
 	model = Facture
 	readonly_fields = ('employe','session',)
 	fields = ('employe', 'session')
-	list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_avant_taxes',)
+	list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_total',)
 	exclude = ('actif',)
 	actions = [ annuler_vente ]
 	inlines = [ ExemplaireVenteInline, ]

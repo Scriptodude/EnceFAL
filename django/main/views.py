@@ -4,7 +4,6 @@ import urllib
 from lxml import html
 
 from datetime import datetime, timedelta, date
-from django.conf import settings
 from django.shortcuts import render_to_response,render
 from django.template import RequestContext, Context
 from django.http import (
@@ -51,10 +50,16 @@ def livre(request):
     if not request.user.is_authenticated():
         return HttpResponseNotFound()
 
+	print("Assert ISBN")
 	assert('isbn' in request.GET)
+
+	print("Assert NB")
 	assert('nb' in request.GET)
+
+	print("Assert Len")
 	assert(len(request.GET['isbn']) in [10,13])
 
+	print("Assert done !")
 	reponse = None
 	livre = None
 	isbn = request.GET['isbn']
@@ -111,6 +116,7 @@ def exemplaire(request):
 
 	assert('identifiant' in request.GET)
 	assert('nb' in request.GET)
+	print("First asserts")
 
     nb = request.GET['nb']
     identifiant = request.GET['identifiant']
@@ -168,24 +174,23 @@ def vendeur(request):
 
 def factures(request):
 
-	if not request.user.is_authenticated():
-		return HttpResponseNotFound()
+    if not request.user.is_authenticated():
+        return HttpResponseNotFound()
 
-	if 'id' in request.GET and request.GET['id']:
-		id_facture = request.GET['id']
+    if 'id' in request.GET and request.GET['id']:
+        id_facture = request.GET['id']
 
-		try:
-			facture = Facture.objects.get(id=id_facture)
-		except Facture.DoesNotExist:
-		    facture = None
-	else:
-		# Hack louche pour l'instant
-		facture = 0
+        try:
+            facture = Facture.objects.get(id=id_facture)
+        except Facture.DoesNotExist:
+            facture = None
+    else:
+        # Hack louche pour l'instant
+        facture = 0
 
-	context = {
-		'facture':facture,
-		'taxable':settings.TAXABLES,
-	}
+    context = {
+        'facture':facture,
+    }
 
-	return render(request, 'encefal/factures.html', context)
+    return render(request, 'encefal/factures.html', context)
 
