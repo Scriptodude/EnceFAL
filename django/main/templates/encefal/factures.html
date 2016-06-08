@@ -43,7 +43,22 @@
             {% endfor %}
             <tfoot>
                 <tr>
-                    <td colspan="5">Total: {{ facture.prix_total }} $</td>
+					<td colspan="4"></td>
+                    <td colspan="1">Total: {{ facture.prix_avant_taxes|floatformat:"2" }} $</td>
+					{% if taxable %}
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td colspan="1">TPS: {{ facture.prix_tps|floatformat:"2" }} $ </td>
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td colspan="1">TVQ: {{ facture.prix_tvq|floatformat:"2" }} $ </td>
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td colspan="1">Final: {{ facture.prix_total|floatformat:"2" }} $ </td>
+					{% endif %}
                 </tr>
             </tfoot>
         </table>
