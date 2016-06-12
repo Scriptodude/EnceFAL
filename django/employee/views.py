@@ -30,6 +30,7 @@ def rapport(request):
 		date = datetime.strptime(date_init,"%Y-%m-%d")
 	else:
 		date = datetime.today()
+        date_init = date.today().strftime("%Y-%m-%d")
 
 	lendemain = date + timedelta(days=1)
 
