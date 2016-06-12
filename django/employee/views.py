@@ -26,8 +26,8 @@ def index_employee(request):
 def rapport(request):
 
 	if 'date' in request.GET:
-		date = request.GET['date']
-		date = datetime.strptime(date,"%Y-%m-%d")
+		date_init = request.GET['date']
+		date = datetime.strptime(date_init,"%Y-%m-%d")
 	else:
 		date = datetime.today()
 
@@ -62,7 +62,7 @@ def rapport(request):
 		}
 
 	con_notax = {
-		
+		'date_init':date_init,
 		'date':date.date(),
 		'taxable':settings.TAXABLES,
 		'nb_ajoutes':nb_ajoutes,
