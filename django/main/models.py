@@ -45,10 +45,9 @@ class Vendeur(Metadata):
         verbose_name_plural = "Vendeurs (Vrai)"
         
 
-    # En attendant les scanners, ce champ est inutile.
-    #code_carte_etudiante = models.IntegerField(null=False, blank=False,
-                                       #verbose_name="Code carte étudiante",
-                                       #help_text="Scannez la carte étudiante")
+    code_carte_etudiante = models.IntegerField(null=True, blank=True, #pragma: no cover
+                                       verbose_name="Code carte étudiante",
+                                       help_text="Scannez la carte étudiante")
     nom = models.CharField(max_length=255) #pragma: no cover
     prenom = models.CharField(max_length=255, verbose_name='Prénom', ) #pragma: no cover
     code_permanent = models.CharField(max_length=12) #pragma: no cover
