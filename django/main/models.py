@@ -129,30 +129,14 @@ class Session(Metadata):
 ################################################################################
 
 class Facture(Metadata):
-<<<<<<< HEAD
-    employe = models.ForeignKey(User, db_column='employe', #pragma: no cover
-                                related_name='factures',blank=True)
-    session = models.ForeignKey(Session, db_column='session', #pragma: no cover
-                                related_name='factures',blank=True)
-=======
 	employe = models.ForeignKey(User, db_column='employe', #pragma: no cover
 		                        related_name='factures',blank=True)
 	session = models.ForeignKey(Session, db_column='session', #pragma: no cover
 		                        related_name='factures',blank=True)
->>>>>>> taxDev
 
 	def __unicode__(self):
 	  return 'Facture #%s' % (self.id)
 
-<<<<<<< HEAD
-    def nb_livres(self):
-        return self.exemplaires.count()
-    nb_livres.short_description = 'Nombre de livres' #pragma: no cover
-
-    def prix_total(self):
-        return sum([e.prix for e in self.exemplaires.all()]) or 0
-    prix_total.short_description = 'Prix total de la facture' #pragma: no cover
-=======
 	def nb_livres(self):
 		return self.exemplaires.count()
 	nb_livres.short_description = 'Nombre de livres' #pragma: no cover
@@ -172,7 +156,6 @@ class Facture(Metadata):
 			prix = self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq()
 		return round(prix, 2)
 	prix_total.short_description = 'Prix de la facture avec ou sans les taxes' #pragma: no cover
->>>>>>> taxDev
 
 
 ################################################################################
