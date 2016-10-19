@@ -43,7 +43,7 @@ class Vendeur(Metadata):
     class Meta: #pragma: no cover
         verbose_name = "Vendeur (Vrai)"
         verbose_name_plural = "Vendeurs (Vrai)"
-        
+
 
     # En attendant les scanners, ce champ est inutile.
     #code_carte_etudiante = models.IntegerField(null=False, blank=False,
@@ -84,7 +84,7 @@ class Reception(Vendeur): #pragma: no cover
         proxy = True
         verbose_name = "Vendeur"
         verbose_name_plural = "Vendeurs"
-        
+
 
     def __unicode__(self):
         return ("Reception de livres de " + self.nom + ', ' + self.prenom)
@@ -120,9 +120,9 @@ class Session(Metadata):
         return reponse
 
     @staticmethod #pragma: no cover
-    def session_null(): 
+    def session_null():
         return Session.objects.get(nom="/dev/null")
- 
+
 
 
 ################################################################################
@@ -142,8 +142,17 @@ class Facture(Metadata):
         return self.exemplaires.count()
     nb_livres.short_description = 'Nombre de livres' #pragma: no cover
 
-    def prix_total(self):
+    def prix_avant_taxes(self):
         return sum([e.prix for e in self.exemplaires.all()]) or 0
+
+    def prix_tps(self):
+        return self.prix_avant_taxes() * 0.05
+
+    def prix_tvq(self):
+        return self.prix_avant_taxes() * 0.09975
+
+    def prix_total(self):
+        return self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq()
     prix_total.short_description = 'Prix total de la facture' #pragma: no cover
 
 
@@ -154,7 +163,7 @@ class Livre(Metadata):
     vendeur = models.ManyToManyField(Vendeur, db_column='vendeur', #pragma: no cover
                                      related_name='livres', through='Exemplaire')
     isbn = models.CharField(max_length=13, blank=True, #pragma: no cover
-							null=False, unique=True, 
+							null=False, unique=True,
 							verbose_name='ISBN du livre',
 							help_text='Scannez le code ISBN')
     titre = models.CharField(max_length=255, blank=True, ) #pragma: no cover
@@ -176,13 +185,13 @@ class Livre(Metadata):
 
     def __unicode__(self):
       return '%s [%s]' % (self.titre, self.auteur)
-      
+
 
 
 class Vente(Facture): #pragma: no cover
     class Meta:
         proxy = True
-        
+
 
     def __unicode__(self):
         return ""
@@ -201,10 +210,10 @@ ETAT_LIVRE_CHOICES = ( #pragma: no cover
 )
 
 ### Field for prices ###
-### verify if the price is rounded 
+### verify if the price is rounded
 ### (eg. 10.03 becomes 10.05
 class PriceField(models.DecimalField):
-	
+
 	def validate(self, value, form):
 		"Check if the value is a valid price rounded to the nearest 5 cents"
 
@@ -216,7 +225,7 @@ class PriceField(models.DecimalField):
 			raise forms.ValidationError(
 				"Le prix n'est pas un multiple de 5 cents",
 				code='erreur5cents')
-				
+
 
 class Exemplaire(Metadata):
 
@@ -228,7 +237,7 @@ class Exemplaire(Metadata):
 	vendeur = models.ForeignKey(Vendeur, db_column='vendeur', #pragma: no cover
                                 related_name='exemplaires',)
 	etat = models.CharField(max_length=4, #pragma: no cover
-							choices=ETAT_LIVRE_CHOICES, 
+							choices=ETAT_LIVRE_CHOICES,
 							default='VENT',
 							verbose_name='État', )
 	prix = PriceField(default=0.00, max_digits=5, #pragma: no cover
