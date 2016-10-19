@@ -146,13 +146,13 @@ class Facture(Metadata):
         return sum([e.prix for e in self.exemplaires.all()]) or 0
 
     def prix_tps(self):
-        return float(self.prix_avant_taxes() * 0.05)
+        return self.prix_avant_taxes() * 0.05
 
     def prix_tvq(self):
-        return float(self.prix_avant_taxes() * 0.09975)
+        return self.prix_avant_taxes() * 0.09975
 
     def prix_total(self):
-        return float(self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq())
+        return self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq()
     prix_total.short_description = 'Prix total de la facture' #pragma: no cover
 
 
