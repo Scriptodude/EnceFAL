@@ -104,12 +104,12 @@ class ModelsTest(TestCase):
 
         self.assertTrue('1' in fact.__unicode__())
         self.assertEqual(fact.nb_livres(), 1)
-        self.assertEqual(fact.prix_avant_taxes(), 10.05)
+        self.assertEqual(fact.prix_avant_taxes(), Decimal('10.05'))
 
         if settings.TAXABLES:
             self.assertTrue(0.4 < fact.prix_tps() < 0.6)
             self.assertTrue(1 < fact.prix_tvq() < 1.05)
-            self.assertEqual(fact.prix_total(), 11.55)
+            self.assertEqual(fact.prix_total(), Decimal('11.55'))
 
 
     # Test de quelques methodes
