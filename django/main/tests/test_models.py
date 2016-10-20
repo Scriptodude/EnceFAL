@@ -108,7 +108,7 @@ class ModelsTest(TestCase):
 
         if settings.TAXABLES:
             self.assertTrue(0.4 < fact.prix_tps() < 0.6)
-            self.assertTrue(1 < fact.prix_tvq() < 1.05)
+            self.assertTrue(0.9 < fact.prix_tvq() < 1.1)
             self.assertEqual(fact.prix_total(), Decimal('11.55'))
 
 
