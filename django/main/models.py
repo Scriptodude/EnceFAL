@@ -144,16 +144,19 @@ class Facture(Metadata):
     nb_livres.short_description = 'Nombre de livres' #pragma: no cover
 
     def prix_avant_taxes(self):
-        return sum([e.prix for e in self.exemplaires.all()]) or 0
+        return self.__roundTwoPlace(sum([e.prix for e in self.exemplaires.all()])) or 0
 
     def prix_tps(self):
-        return self.prix_avant_taxes() * Decimal('0.05')
+        return self.__roundTwoPlace(self.prix_avant_taxes() * Decimal('0.05'))
 
     def prix_tvq(self):
-        return self.prix_avant_taxes() * Decimal('0.09975')
+        return self.__roundTwoPlace(self.prix_avant_taxes() * Decimal('0.09975'))
 
     def prix_total(self):
-        return self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq()
+        return self.__roundTwoPlace(self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq())
+
+    def __roundTwoPlace(var):
+        return var.quantize(Decimal('0.01'))
     prix_total.short_description = 'Prix total de la facture' #pragma: no cover
 
 
