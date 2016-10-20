@@ -155,7 +155,7 @@ class Facture(Metadata):
     def prix_total(self):
         return self.__roundTwoPlace(self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq())
 
-    def __roundTwoPlace(var):
+    def __roundTwoPlace(self, var):
         return var.quantize(Decimal('0.01'))
     prix_total.short_description = 'Prix total de la facture' #pragma: no cover
 
