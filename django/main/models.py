@@ -8,6 +8,7 @@ import urllib, json
 
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
+from decimal import Decimal
 from django.template import Context
 
 ################################################################################
@@ -146,10 +147,10 @@ class Facture(Metadata):
         return sum([e.prix for e in self.exemplaires.all()]) or 0
 
     def prix_tps(self):
-        return self.prix_avant_taxes() * 0.05
+        return self.prix_avant_taxes() * Decimal('0.05')
 
     def prix_tvq(self):
-        return self.prix_avant_taxes() * 0.09975
+        return self.prix_avant_taxes() * Decimal('0.09975')
 
     def prix_total(self):
         return self.prix_avant_taxes() + self.prix_tps() + self.prix_tvq()
