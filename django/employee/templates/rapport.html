@@ -10,12 +10,12 @@
             }).on("changeDate", function(e) {
                 var day = ('0'+(e.date.getDate())).slice(-2)
                 var month = ('0'+(e.date.getMonth()+1)).slice(-2)
-                window.location.href = "{% url 'rapport' %}" + "?date=" 
-                                        + e.date.getFullYear() + "-" 
-                                        + month + "-" 
+                window.location.href = "{% url 'rapport' %}" + "?date="
+                                        + e.date.getFullYear() + "-"
+                                        + month + "-"
                                         + day;
             });
-        }); 
+        });
     </script>
 {% endblock %}
 
@@ -45,7 +45,7 @@
                     {% endif %}
                 </td>
             </tr>
-            
+
             <tr>
                 <td>Nombre de livres vendus:</td>
                 <td>
@@ -56,7 +56,7 @@
                 {% endif %}
                 </td>
             </tr>
-        
+
             <tr>
                 <td>Nombre de ventes:</td>
                 <td>
@@ -78,13 +78,9 @@
                 {% endif %}
                 </td>
             </tr>
-
-
-
         </table>
 
     </div>
 </div>
 
 {% endblock %}
-
