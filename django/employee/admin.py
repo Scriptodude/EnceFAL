@@ -23,6 +23,11 @@ from main.models import (
                                     Vente, Facture
                                    )
 
+#Eventually modifiy this to manage admin website
+#and my_view as explained on docs.djangoproject.com/en/1.9/ref/contrib/admin/
+#class AdminEmployee(AdminSite):
+#	index_template="employee/index.html"
+
 class ExemplaireReceptionInline(admin.TabularInline): #pragma: no cover
 
     exclude = ['facture', 'actif', 'etat', 'livre']
@@ -47,7 +52,6 @@ class ReceptionAdmin(admin.ModelAdmin):
     model = Reception
     exclude = ('actif',)
     fields = [
-			  'code_carte_etudiante',
               'code_permanent',
               'prenom',
               'nom' ,
@@ -82,7 +86,6 @@ class ReceptionAdmin(admin.ModelAdmin):
         context['date_transaction'] = datetime.date.today()
         context['employe'] = request.user.username
         context['montant_total'] = sum([e.prix for e in context['exemplaires']]) or 0
-        context['ext']='admin/base.html'
 
         return render(request, 'encefal/depots.html', Context(context))
 
@@ -138,8 +141,7 @@ class VenteAdmin(admin.ModelAdmin):
 	model = Facture
 	readonly_fields = ('employe','session',)
 	fields = ('employe', 'session')
-	list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_avant_taxes',)
-
+	list_display = ( 'date_creation', 'employe', 'session', 'nb_livres', 'prix_total',)
 	exclude = ('actif',)
 	actions = [ annuler_vente ]
 	inlines = [ ExemplaireVenteInline, ]
