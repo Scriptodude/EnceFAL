@@ -4,7 +4,6 @@
 .coverage
 bin
 develop-eggs
-dist
 py_env
 downloads
 eggs
