@@ -39,7 +39,7 @@ class ExemplaireVenteInline(admin.TabularInline): #pragma: no cover
     fields = ['identifiant','isbn', 'titre', 'auteur', 'prix']
     extra = 5
 
-class SessionAdmin(admin.ModelAdmin): #pragma: no cover
+class SessionAdmin(admin.ModelAdmin):
     exclude = ('actif',)
     list_display = ('nom', 'date_debut', 'date_fin',)
 
@@ -104,7 +104,7 @@ class VenteAdmin(admin.ModelAdmin):
 
 	def __init__(self, *args, **kwargs):
 		super(VenteAdmin, self).__init__(*args, **kwargs)
-		
+
 	def get_form(self, request, obj=None, **kwargs):
 		self.model.session = Session.current_session()
 		form = super(VenteAdmin, self).get_form(request, obj, **kwargs)
