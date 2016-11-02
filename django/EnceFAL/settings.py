@@ -28,9 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# True => Taxes are calculated
-# False => Taxes aren't calculated
-TAXABLES = True
 
 # Application definition
 # The order is VERY important,
@@ -79,7 +76,7 @@ TEMPLATES = [
 				'django.template.context_processors.media',
 				'django.template.context_processors.static',
 				'django.template.context_processors.tz',
-      			'django.template.context_processors.request',
+      			'django.template.context_processors.request', 					
 				'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -121,6 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+ALLOWED_HOSTS = [ "localhost" ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
