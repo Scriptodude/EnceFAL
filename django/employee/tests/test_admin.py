@@ -6,9 +6,6 @@ from django.contrib.admin.sites import AdminSite
 
 from main.models import *
 
-# Create your tests here.
-
-
 class MockRequest(object):
     pass
 
